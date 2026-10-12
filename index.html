@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counsel Scope | From Counselling to Campus</title> 
+    
+    <meta name="description" content="Counsel Scope is a premier educational consultancy guiding students from initial counselling to their dream campus with personalized mentorship and support.">
+    <meta name="keywords" content="Counsel Scope, Educational Consultancy, Career Counselling, College Admission Support, From Counselling to Campus">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-navy: #0b132b;
+            --secondary-navy: #1c2541;
+            --accent-blue: #3a86ff;
+            --accent-yellow: #ffb703;
+            --bg-cream: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-cream); color: var(--text-main); overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* Top Trust Announcement Bar */
+        .top-trust-bar {
+            background: linear-gradient(90deg, var(--primary-navy), var(--secondary-navy));
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1001;
+        }
+        .top-trust-bar span { color: var(--accent-yellow); font-weight: 700; }
+
+        /* Navigation */
+        nav {
+            position: fixed; top: 35px; left: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 8%; z-index: 1000; border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            transition: top 0.3s;
+        }
+        .nav-logo { font-size: 20px; font-weight: 800; color: var(--primary-navy); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .nav-logo i { color: var(--accent-yellow); background: var(--primary-navy); padding: 8px; border-radius: 50%; font-size: 14px; }
+        
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 14px; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); }
+
+        /* Dropdown Styling for Guide Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 180px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 18px;
+            font-size: 13px;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f8fafc;
+            color: var(--accent-blue);
+        }
+
+        .nav-btn { background: var(--accent-blue); color: white !important; padding: 10px 22px; border-radius: 50px; transition: all 0.3s ease !important; box-shadow: 0 4px 15px rgba(58, 134, 255, 0.3); }
+        .nav-btn:hover { background: #2563eb !important; transform: translateY(-2px); }
+
+        /* Mobile Hamburger Menu Toggle */
+        .menu-toggle { display: none; font-size: 22px; color: var(--primary-navy); cursor: pointer; }
+
+        /* Hero Banner with Floating Trust Overlay Animation */
+        .hero-section { padding: 155px 8% 30px; background: linear-gradient(135deg, #fef9e7 0%, var(--bg-cream) 100%); display: flex; justify-content: center; }
+        .banner-container { width: 100%; max-width: 1100px; background: #ffffff; border-radius: 28px; overflow: hidden; box-shadow: 0 20px 40px rgba(11, 19, 43, 0.08); border: 1px solid rgba(226, 232, 240, 0.8); position: relative; }
+        .banner-container img { width: 100%; height: auto; max-height: 440px; object-fit: cover; display: block; filter: brightness(0.9); }
+        
+        .banner-trust-badge {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(11, 19, 43, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 12px 20px;
+            border-radius: 14px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            animation: floatBadge 3s ease-in-out infinite;
+        }
+        @keyframes floatBadge {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .banner-trust-badge i { font-size: 24px; color: var(--accent-yellow); }
+        .banner-trust-badge h4 { font-size: 15px; font-weight: 700; color: white; margin-bottom: 2px; }
+        .banner-trust-badge p { font-size: 12px; color: #cbd5e1; margin-bottom: 0; }
+
+        /* Main Container layout */
+        .main-container { max-width: 1100px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1.6fr 1fr; gap: 35px; }
+
+        .content-card { background: var(--card-bg); padding: 45px; border-radius: 28px; box-shadow: 0 15px 40px rgba(11, 19, 43, 0.05); border: 1px solid rgba(226, 232, 240, 0.8); animation: fadeInUp 0.8s ease-out; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title { font-size: 28px; font-weight: 800; color: var(--primary-navy); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+        .section-title i { color: var(--accent-yellow); font-size: 24px; }
+        .about-text { font-size: 15px; line-height: 1.8; color: var(--text-muted); margin-bottom: 18px; }
+
+        /* Feature Highlights inside Content */
+        .home-features { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+        .home-feature-item { background: #f8fafc; padding: 18px; border-radius: 14px; border-left: 3px solid var(--accent-blue); display: flex; gap: 12px; align-items: flex-start; }
+        .home-feature-item i { color: var(--accent-blue); font-size: 18px; margin-top: 2px; }
+        .home-feature-item h5 { font-size: 14px; color: var(--primary-navy); font-weight: 700; margin-bottom: 2px; }
+        .home-feature-item p { font-size: 12px; color: var(--text-muted); margin-bottom: 0; }
+
+        /* Real Verified Trust Box */
+        .real-trust-box {
+            margin-top: 25px;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 1px solid #86efac;
+            padding: 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .real-trust-box i { font-size: 30px; color: #16a34a; flex-shrink: 0; background: white; padding: 10px; border-radius: 50%; }
+        .trust-content h5 { font-size: 15px; color: #14532d; font-weight: 700; margin-bottom: 2px; }
+        .trust-content p { font-size: 12px; color: #166534; margin-bottom: 0; }
+
+        /* Action Sidebar */
+        .cta-sidebar { display: flex; flex-direction: column; gap: 16px; }
+        .cta-card-title { font-size: 18px; font-weight: 700; color: var(--primary-navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .cta-card-title i { color: var(--accent-yellow); }
+        
+        .action-btn { 
+            display: flex; align-items: center; justify-content: space-between; 
+            background: var(--card-bg); padding: 16px 20px; border-radius: 16px; 
+            text-decoration: none; color: var(--primary-navy); font-weight: 600; font-size: 14px; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); border: 1px solid rgba(226, 232, 240, 0.8); 
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); 
+        }
+        .action-btn:hover { 
+            transform: translateY(-4px); 
+            border-color: var(--accent-blue); 
+            box-shadow: 0 10px 25px rgba(58, 134, 255, 0.12); 
+            color: var(--accent-blue); 
+            background: #ffffff;
+        }
+        .action-btn-content { display: flex; align-items: center; gap: 12px; }
+        .action-btn-content i { font-size: 18px; color: var(--accent-blue); width: 22px; text-align: center; }
+        .action-btn.featured { background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy)); color: white; border: none; box-shadow: 0 6px 20px rgba(11, 19, 43, 0.2); }
+        .action-btn.featured .action-btn-content i, .action-btn.featured span, .action-btn.featured .fa-chevron-right { color: white; }
+        .action-btn.featured:hover { background: linear-gradient(135deg, var(--secondary-navy), var(--primary-navy)); transform: translateY(-4px); }
+        .action-btn .fa-chevron-right { font-size: 11px; color: var(--text-muted); transition: transform 0.3s; }
+        .action-btn:hover .fa-chevron-right { transform: translateX(4px); color: var(--accent-blue); }
+
+        footer { background: var(--primary-navy); color: white; text-align: center; padding: 40px 20px; margin-top: 80px; border-top: 4px solid var(--accent-blue); }
+        footer p { font-size: 14px; color: #94a3b8; }
+        footer span { color: var(--accent-yellow); }
+
+        /* Responsive Breakpoints */
+        @media(max-width: 900px) {
+            .top-trust-bar { font-size: 11px; padding: 6px 10px; position: relative; }
+            nav { top: 0; padding: 12px 6%; position: relative; }
+            .nav-links {
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: white; flex-direction: column; align-items: flex-start;
+                padding: 0 8%; max-height: 0; overflow: hidden; visibility: hidden; transition: all 0.3s ease-in-out;
+                border-bottom: 0px solid #e2e8f0; box-shadow: none;
+            }
+            .nav-links.active { max-height: 420px; padding: 20px 8%; visibility: visible; border-bottom: 1px solid #e2e8f0; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                border: none;
+                padding-left: 15px;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+            }
+            .dropdown.open .dropdown-menu {
+                display: block;
+            }
+            .menu-toggle { display: block; }
+            .main-container { grid-template-columns: 1fr; }
+            .hero-section { padding-top: 25px; }
+            .home-features { grid-template-columns: 1fr; }
+            .banner-trust-badge { display: none; }
+        }
+
+        @media(max-width: 650px) {
+            .content-card { padding: 25px; }
+            .section-title { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Real Trust Top Announcement Bar -->
+    <div class="top-trust-bar">
+        <i class="fa-solid fa-award"></i> <span>100% Verified Consultations</span> &bull; Admissions Open 2026-27 &bull; <i class="fa-solid fa-phone-volume"></i> Helpline: +91 93546 14113
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html" class="nav-logo"><i class="fa-solid fa-graduation-cap"></i> Counsel Scope</a>
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="nav-links" id="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="about.html">About Us</a>
+            
+            <!-- Guide Dropdown Menu -->
+            <div class="dropdown" id="dropdown-menu">
+                <a href="javascript:void(0);" class="dropdown-toggle">Guide <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></a>
+                <div class="dropdown-menu">
+                    <a href="medical.html">Medical Admission</a>
+                </div>
+            </div>
+
+            <a href="contact.html">Contact Us</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeHb0mJy8gmgNPGhMMBm1iSIEU6qLhatUZo67nkUIaKV5lVwQ/viewform?usp=dialog" target="_blank" class="nav-btn">Register Now</a>
+        </div>
+    </nav>
+
+    <!-- Hero Banner Section -->
+    <section class="hero-section">
+        <div class="banner-container">
+            <img src="cover.jpg" alt="Counsel Scope Banner">
+            <div class="banner-trust-badge">
+                <i class="fa-solid fa-shield-check"></i>
+                <div>
+                    <h4>98% Success Rate</h4>
+                    <p>Trusted by 12,500+ Students</p>
+                </div>
+            </div>
+        </div> 
+    </section>
+
+    <!-- Main Content & Sidebar Container -->
+    <div class="main-container">
+        
+        <!-- Left Content Card -->
+        <div class="content-card">
+            <h2 class="section-title"><i class="fa-solid fa-bullseye"></i> Welcome to Counsel Scope</h2>
+            <p class="about-text">
+                <strong>Counsel Scope</strong> is a premier educational consultancy guiding students through every critical stage of their academic journey—from initial counselling to their dream campus.
+            </p>
+            <p class="about-text">
+                We bridge the gap between confusion and clarity by offering tailored mentoring, university shortlisting, and admission support. <strong>"We Are With You"</strong> at every single step of your path toward absolute success.
+            </p>
+
+            <!-- Feature Breakdown Grid for Trust -->
+            <div class="home-features">
+                <div class="home-feature-item">
+                    <i class="fa-solid fa-user-check"></i>
+                    <div>
+                        <h5>Verified Guidance</h5>
+                        <p>Transparent counselling with zero misleading promises.</p>
+                    </div>
+                </div>
+                <div class="home-feature-item">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <div>
+                        <h5>Top Institutions</h5>
+                        <p>Direct tie-ups with premium universities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust Verification Banner Box -->
+            <div class="real-trust-box">
+                <i class="fa-solid fa-certificate"></i>
+                <div class="trust-content">
+                    <h5>Official Admission Partner Guarantee</h5>
+                    <p>Get authentic documentation, profile evaluation, and complete safety assurance under expert education consultants.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Quick Actions Sidebar -->
+        <div class="cta-sidebar">
+            <div class="content-card" style="padding: 25px; margin-bottom: 0;">
+                <h3 class="cta-card-title"><i class="fa-solid fa-bolt"></i> Quick Actions</h3>
+                <div style="display: flex; flex-direction: column; gap: 14px;">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeHb0mJy8gmgNPGhMMBm1iSIEU6qLhatUZo67nkUIaKV5lVwQ/viewform?usp=dialog" target="_blank" class="action-btn featured">
+                        <div class="action-btn-content"><i class="fa-solid fa-file-lines"></i><span>Google Form Register</span></div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="tel:+919354614113" class="action-btn">
+                        <div class="action-btn-content"><i class="fa-solid fa-phone-volume"></i><span>Call Admissions</span></div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="https://wa.me/919354614113" target="_blank" class="action-btn">
+                        <div class="action-btn-content"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i><span>WhatsApp Chat</span></div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="mailto:counselscope@gmail.com" class="action-btn">
+                        <div class="action-btn-content"><i class="fa-solid fa-envelope"></i><span>Email Support</span></div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="https://instagram.com/counsel_scope" target="_blank" class="action-btn">
+                        <div class="action-btn-content"><i class="fa-brands fa-instagram" style="color: #e1306c;"></i><span>Instagram Profile</span></div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 <span>Counsel Scope</span>. From Counselling to Campus. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Toggle responsive mobile navigation menu and icons
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenu.querySelector('i');
+            if(navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Toggle dropdown on mobile click
+        const dropdownToggle = dropdownMenu.querySelector('.dropdown-toggle');
+        dropdownToggle.addEventListener('click', (e) => {
+            if (window.innerWidth <= 900) {
+                e.preventDefault();
+                dropdownMenu.classList.toggle('open');
+            }
+        });
+    </script>
+</body>
+</html>
