@@ -1,4 +1,3 @@
-STUDENT_FORM_HTML = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,7 +130,6 @@ STUDENT_FORM_HTML = """
                     banner.className = "status-banner status-granted";
                     bannerText.innerHTML = "Editing Access Granted! You can update your submitted details below.";
                     
-                    // Auto-fill form with existing data
                     const l = data.lead;
                     document.getElementById('lead_id').value = l.id;
                     document.getElementById('student_name').value = l.student_name || '';
@@ -177,8 +175,3 @@ STUDENT_FORM_HTML = """
     </script>
 </body>
 </html>
-"""
-
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
