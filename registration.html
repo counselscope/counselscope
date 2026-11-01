@@ -26,7 +26,6 @@
 
     <div class="form-box">
         <div id="formContainer">
-            <!-- Logo Added Here -->
             <div class="logo-container">
                 <img src="logo.png" alt="CounselScope Logo">
             </div>
@@ -86,19 +85,17 @@
                         <option value="Uttar Pradesh">Uttar Pradesh</option>
                         <option value="Uttarakhand">Uttarakhand</option>
                         <option value="West Bengal">West Bengal</option>
-                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                        <option value="Chandigarh">Chandigarh</option>
-                        <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
                         <option value="Delhi">Delhi</option>
-                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                        <option value="Ladakh">Ladakh</option>
-                        <option value="Lakshadweep">Lakshadweep</option>
-                        <option value="Puducherry">Puducherry</option>
                     </select>
                 </div>
                 <div class="input-group">
                     <label>City *</label>
                     <input type="text" id="city" name="city" required placeholder="Enter your city">
+                </div>
+                <!-- [Redacted ID] Card Upload Field Added -->
+                <div class="input-group">
+                    <label>[Redacted ID] Document / Card (Image/PDF) *</label>
+                    <input type="file" id="id_document" name="id_document" accept="image/*,.pdf" required style="padding: 9px;">
                 </div>
                 <button type="submit" id="submitBtn">Submit Enquiry</button>
             </form>
@@ -109,7 +106,7 @@
                 <img src="logo.png" alt="CounselScope Logo" style="max-width: 130px;">
             </div>
             <h3>🎉 Thank You!</h3>
-            <p>Your enquiry has been successfully submitted. Our expert counselor will contact you shortly to guide you through your campus journey.</p>
+            <p>Your enquiry and documents have been successfully submitted. Our expert counselor will contact you shortly.</p>
         </div>
     </div>
 
@@ -118,7 +115,7 @@
             e.preventDefault();
             
             const btn = document.getElementById('submitBtn');
-            btn.innerText = "Submitting...";
+            btn.innerText = "Submitting with Document...";
             btn.disabled = true;
 
             const formData = new FormData();
@@ -129,9 +126,13 @@
             formData.append('student_email', document.getElementById('student_email').value);
             formData.append('state', document.getElementById('state').value);
             formData.append('city', document.getElementById('city').value);
+            
+            const fileField = document.getElementById('id_document');
+            if (fileField.files.length > 0) {
+                formData.append('id_document', fileField.files[0]);
+            }
 
             try {
-                // Connected to your Render backend URL
                 const response = await fetch('https://counselscope-crm.onrender.com/api/submit-lead', {
                     method: 'POST',
                     body: formData
