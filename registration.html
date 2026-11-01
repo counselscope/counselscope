@@ -78,7 +78,7 @@
             </div>
             
             <div class="form-body">
-                <form id="leadForm">
+                <form id="leadForm" enctype="multipart/form-data">
                     
                     <!-- Section 1: Personal Details -->
                     <div class="form-section">
@@ -192,7 +192,7 @@
                         <div class="row-2">
                             <div class="input-group">
                                 <label>How did you hear about us? *</label>
-                                <select name="hear_about" required onchange="toggleOther('hear_about', 'other_source')">
+                                <select id="hear_about" name="hear_about" required onchange="toggleOther('hear_about', 'other_source')">
                                     <option value="">Select Source</option>
                                     <option value="Google Search">Google Search</option>
                                     <option value="Instagram / Facebook">Instagram / Facebook</option>
@@ -301,6 +301,8 @@
                         <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_1" placeholder="College Name 1"><input type="text" name="col_state_1" placeholder="State 1"></div>
                         <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_2" placeholder="College Name 2"><input type="text" name="col_state_2" placeholder="State 2"></div>
                         <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_3" placeholder="College Name 3"><input type="text" name="col_state_3" placeholder="State 3"></div>
+                        <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_4" placeholder="College Name 4"><input type="text" name="col_state_4" placeholder="State 4"></div>
+                        <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_5" placeholder="College Name 5"><input type="text" name="col_state_5" placeholder="State 5"></div>
                         
                         <div class="input-group" style="margin-top:15px;">
                             <label>Aadhar Attachment (PDF or Image only)</label>
@@ -373,7 +375,7 @@
                 }
             } catch (error) {
                 console.error('Submission Error:', error);
-                alert('Network error or server down. Please try again.');
+                alert('Network error or GitHub API commit failed. Please try again.');
                 btn.innerText = "Submit Enquiry Now";
                 btn.disabled = false;
             }
