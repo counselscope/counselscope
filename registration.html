@@ -3,322 +3,330 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Admission Enquiry - CounselScope</title>
+    <title>Admission Enquiry - CounselScope</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
-        .form-box { background: white; padding: 30px 40px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); width: 100%; max-width: 540px; box-sizing: border-box; border: 1px solid #e2e8f0; }
-        .logo-container { text-align: center; margin-bottom: 20px; }
-        .logo-container img { max-width: 160px; height: auto; }
-        h2 { margin-top: 0; color: #0f172a; text-align: center; margin-bottom: 8px; font-size: 22px; font-weight: 700; }
-        .subtitle { text-align: center; color: #64748b; font-size: 13.5px; margin-bottom: 25px; }
-        .input-group { margin-bottom: 18px; }
-        label { display: block; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: #475569; }
-        input, select, textarea { width: 100%; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box; background: #fff; transition: 0.2s; color: #334155; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
-        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; }
-        .checkbox-group input { width: 18px; height: 18px; margin-top: 2px; cursor: pointer; flex-shrink: 0; }
-        .checkbox-group label { font-size: 13px; color: #334155; font-weight: normal; cursor: pointer; margin-bottom: 0; line-height: 1.4; }
-        .conditional-box { display: none; margin-top: 8px; padding: 10px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; }
-        .college-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-        .desc-text { font-size: 12px; color: #64748b; margin-top: 3px; margin-bottom: 6px; font-style: italic; }
-        button { width: 100%; padding: 12px; background: #0284c7; border: none; border-radius: 8px; color: white; font-weight: 600; font-size: 16px; cursor: pointer; transition: 0.2s; margin-top: 10px; }
-        button:hover { background: #0369a1; }
-        #thankYouMessage { display: none; text-align: center; padding: 20px 0; }
-        #thankYouMessage h3 { color: #16a34a; font-size: 26px; margin-bottom: 12px; }
-        #thankYouMessage p { color: #64748b; font-size: 14.5px; line-height: 1.5; }
-        @media(max-width: 480px) { .college-row { grid-template-columns: 1fr; } }
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+        }
+
+        * { font-family: 'Plus Jakarta Sans', sans-serif; box-sizing: border-box; }
+        body { background: var(--bg-gradient); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 15px; }
+        
+        .form-wrapper { width: 100%; max-width: 600px; background: var(--card-bg); border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); overflow: hidden; border: 1px solid #e2e8f0; animation: fadeIn 0.5s ease-in-out; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-header { background: #0f172a; color: white; padding: 25px; text-align: center; }
+        .form-header img { max-width: 140px; margin-bottom: 10px; border-radius: 6px; }
+        .form-header h2 { margin: 0; font-size: 22px; font-weight: 700; color: #38bdf8; }
+        .form-header p { margin: 5px 0 0; font-size: 13px; color: #94a3b8; }
+
+        .form-body { padding: 30px; }
+        
+        .form-section { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; transition: 0.3s; }
+        .form-section:hover { border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .section-title { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; }
+
+        .input-group { margin-bottom: 15px; }
+        .input-group:last-child { margin-bottom: 0; }
+        label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: #475569; }
+        input, select, textarea { width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; background: #fff; transition: 0.2s; color: #334155; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+        
+        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .desc-text { font-size: 11.5px; color: var(--text-muted); margin-bottom: 8px; font-style: italic; }
+
+        .checkbox-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 8px; max-height: 180px; overflow-y: auto; padding-right: 5px; }
+        .checkbox-item { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: normal; cursor: pointer; }
+        .checkbox-item input { width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
+
+        .consent-box { background: #eff6ff; border: 1px solid #bfdbfe; padding: 15px; border-radius: 10px; display: flex; align-items: flex-start; gap: 12px; margin-top: 20px; }
+        .consent-box input { width: 20px; height: 20px; margin-top: 2px; cursor: pointer; flex-shrink: 0; }
+        .consent-box label { font-size: 13px; color: #1e3a8a; line-height: 1.4; margin-bottom: 0; cursor: pointer; font-weight: 600; }
+
+        .submit-btn { width: 100%; padding: 14px; background: var(--primary); border: none; border-radius: 10px; color: white; font-weight: 700; font-size: 15px; cursor: pointer; transition: 0.2s; margin-top: 20px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+        .submit-btn:hover { background: var(--primary-hover); }
+
+        #thankYouMessage { display: none; text-align: center; padding: 40px 20px; }
+        #thankYouMessage h3 { color: #16a34a; font-size: 26px; margin-bottom: 10px; }
+        #thankYouMessage p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
+
+        @media(max-width: 540px) {
+            .row-2 { grid-template-columns: 1fr; }
+            .form-body { padding: 20px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="form-box">
+    <div class="form-wrapper">
         <div id="formContainer">
-            <div class="logo-container">
-                <img src="logo.png" alt="CounselScope Logo">
+            <div class="form-header">
+                <img src="https://i.ibb.co/6R6t2Y0/unnamed.jpg" alt="CounselScope Logo">
+                <h2>Admission Enquiry Form</h2>
+                <p>From Counselling to Campus, We Are With You</p>
             </div>
-            <h2>Admission Enquiry Form</h2>
-            <div class="subtitle">From Counselling to Campus, We Are With You</div>
             
-            <form id="leadForm">
-                <div class="input-group">
-                    <label>Student Name *</label>
-                    <input type="text" id="student_name" name="student_name" required placeholder="Enter student full name">
-                </div>
-                
-                <div class="input-group">
-                    <label>Father's Name</label>
-                    <input type="text" id="father_name" name="father_name" placeholder="Enter father's name">
-                </div>
-
-                <div class="input-group">
-                    <label>Contact Number *</label>
-                    <input type="tel" id="contact_number" name="contact_number" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
-                </div>
-
-                <div class="input-group">
-                    <label>Alternate Contact Number & Current Education Level</label>
-                    <input type="tel" id="alternate_number" name="alternate_number" placeholder="Alternate phone number" style="margin-bottom: 8px;">
-                    <select id="current_education_level" name="current_education_level" onchange="toggleEducationExtras()">
-                        <option value="">Select Your Current Education Level</option>
-                        <option value="UG">Undergraduate (UG)</option>
-                        <option value="PG">Postgraduate (PG)</option>
-                        <option value="MBA">MBA / Professional</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <div id="educationExtras" class="conditional-box">
-                        <label style="font-size:12px;">Scorecard / Marksheet Upload & Percentage (%)</label>
-                        <input type="file" name="edu_scorecard" accept=".pdf,image/*" style="margin-bottom: 6px; padding: 6px;">
-                        <input type="text" name="edu_percentage" placeholder="Enter percentage or CGPA (e.g., 85%)">
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label>Student Email ID *</label>
-                    <input type="email" id="student_email" name="student_email" required placeholder="student@example.com">
-                </div>
-
-                <div class="input-group">
-                    <label>State *</label>
-                    <select id="state" name="state" required>
-                        <option value="">Select State</option>
-                        <option value="Andhra Pradesh">Andhra Pradesh</option>
-                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                        <option value="Assam">Assam</option>
-                        <option value="Bihar">Bihar</option>
-                        <option value="Chhattisgarh">Chhattisgarh</option>
-                        <option value="Goa">Goa</option>
-                        <option value="Gujarat">Gujarat</option>
-                        <option value="Haryana">Haryana</option>
-                        <option value="Himachal Pradesh">Himachal Pradesh</option>
-                        <option value="Jharkhand">Jharkhand</option>
-                        <option value="Karnataka">Karnataka</option>
-                        <option value="Kerala">Kerala</option>
-                        <option value="Madhya Pradesh">Madhya Pradesh</option>
-                        <option value="Maharashtra">Maharashtra</option>
-                        <option value="Manipur">Manipur</option>
-                        <option value="Meghalaya">Meghalaya</option>
-                        <option value="Mizoram">Mizoram</option>
-                        <option value="Nagaland">Nagaland</option>
-                        <option value="Odisha">Odisha</option>
-                        <option value="Punjab">Punjab</option>
-                        <option value="Rajasthan">Rajasthan</option>
-                        <option value="Sikkim">Sikkim</option>
-                        <option value="Tamil Nadu">Tamil Nadu</option>
-                        <option value="Telangana">Telangana</option>
-                        <option value="Tripura">Tripura</option>
-                        <option value="Uttar Pradesh">Uttar Pradesh</option>
-                        <option value="Uttarakhand">Uttarakhand</option>
-                        <option value="West Bengal">West Bengal</option>
-                        <option value="Delhi">Delhi</option>
-                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label>City *</label>
-                    <input type="text" id="city" name="city" required placeholder="Enter your city">
-                </div>
-
-                <!-- Class 10th Details -->
-                <div class="input-group" style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
-                    <label style="color:#0f172a;">Class 10th Details</label>
-                    <input type="text" name="class_10_percentage" placeholder="10th Percentage / CGPA" style="margin-bottom:8px;">
-                    <input type="file" name="class_10_doc" accept=".pdf,image/*" style="padding:6px;">
-                </div>
-
-                <!-- Class 12th Details -->
-                <div class="input-group" style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
-                    <label style="color:#0f172a;">Class 12th Details</label>
-                    <input type="text" name="class_12_percentage" placeholder="12th Percentage / CGPA" style="margin-bottom:8px;">
-                    <input type="file" name="class_12_doc" accept=".pdf,image/*" style="padding:6px;">
-                </div>
-
-                <!-- 10. Course Interest -->
-                <div class="input-group">
-                    <label>Which course are you interested in? *</label>
-                    <select id="course_interest" name="course_interest" required onchange="toggleOtherCourse(this)">
-                        <option value="">Select Course</option>
-                        <option value="FYJC / Class 11">FYJC / Class 11</option>
-                        <option value="B.Tech / B.E">B.Tech / B.E</option>
-                        <option value="MBBS">MBBS</option>
-                        <option value="BDS">BDS</option>
-                        <option value="B.Pharm">B.Pharm</option>
-                        <option value="B.Sc">B.Sc</option>
-                        <option value="B.Com">B.Com</option>
-                        <option value="B.A">B.A</option>
-                        <option value="BBA">BBA</option>
-                        <option value="BCA">BCA</option>
-                        <option value="BJMC / Mass Communication">BJMC / Mass Communication</option>
-                        <option value="LLB / BA LLB">LLB / BA LLB</option>
-                        <option value="Hotel Management">Hotel Management</option>
-                        <option value="Design / Fashion Design">Design / Fashion Design</option>
-                        <option value="Nursing / Allied Health Sciences">Nursing / Allied Health Sciences</option>
-                        <option value="MBA / PGDM">MBA / PGDM</option>
-                        <option value="MCA">MCA</option>
-                        <option value="M.Com">M.Com</option>
-                        <option value="Study Abroad">Study Abroad</option>
-                        <option value="Not Sure - Need Career Guidance">Not Sure - Need Career Guidance</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <input type="text" id="other_course" name="other_course" placeholder="Please specify other course" style="display:none; margin-top:8px;">
-                </div>
-
-                <!-- 3. How Did You Hear About CounselScope? -->
-                <div class="input-group">
-                    <label>How Did You Hear About CounselScope? *</label>
-                    <select name="hear_about" required onchange="toggleOtherSource(this)">
-                        <option value="">Select Option</option>
-                        <option value="Google Search">Google Search</option>
-                        <option value="Google Maps">Google Maps</option>
-                        <option value="Instagram">Instagram</option>
-                        <option value="Facebook">Facebook</option>
-                        <option value="YouTube">YouTube</option>
-                        <option value="WhatsApp">WhatsApp</option>
-                        <option value="Friend / Family">Friend / Family</option>
-                        <option value="College / School Reference">College / School Reference</option>
-                        <option value="Advertisement">Advertisement</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <input type="text" id="other_source" name="other_source" placeholder="Please specify source" style="display:none; margin-top:8px;">
-                </div>
-
-                <!-- 2. Preferred Time for Counselling Call -->
-                <div class="input-group">
-                    <label>Preferred Time for Counselling Call *</label>
-                    <select name="preferred_time" required>
-                        <option value="">Select Time Slot</option>
-                        <option value="9 AM - 11 AM">9 AM - 11 AM</option>
-                        <option value="11 AM - 1 PM">11 AM - 1 PM</option>
-                        <option value="1 PM - 3 PM">1 PM - 3 PM</option>
-                        <option value="3 PM - 5 PM">3 PM - 5 PM</option>
-                        <option value="5 PM - 7 PM">5 PM - 7 PM</option>
-                        <option value="7 PM - 8 PM">7 PM - 8 PM</option>
-                    </select>
-                </div>
-
-                <!-- 4. What Would You Like Help With? -->
-                <div class="input-group">
-                    <label>What Would You Like Help With?</label>
-                    <div class="desc-text">Select everything you want help with. We'll discuss these during your FREE counseling session.</div>
-                    <div style="display:grid; grid-template-columns:1fr; gap:6px; margin-top:8px; font-size:13.5px;">
-                        <label style="font-weight:normal;"><input type="checkbox" name="help_with" value="Finding suitable colleges"> Finding suitable colleges</label>
-                        <label style="font-weight:normal;"><input type="checkbox" name="help_with" value="Finding colleges within my budget"> Finding colleges within my budget</label>
-                        <label style="font-weight:normal;"><input type="checkbox" name="help_with" value="Course & career selection"> Course & career selection</label>
-                        <label style="font-weight:normal;"><input type="checkbox" name="help_with" value="Admission process"> Admission process</label>
-                        <label style="font-weight:normal;"><input type="checkbox" name="help_with" value="Direct admission options"> Direct admission options</label>
-                        <label style="font-weight:normal;"><input type="checkbox" name="help_with" value="Entrance exam guidance"> Entrance exam guidance</label>
-                        <label style="font-weight:normal;"><input type="checkbox" name="help_with" value="Scholarship options"> Scholarship options</label>
-                        <label style="font-weight:normal;"><input type="checkbox" name="help_with" value="Education loan guidance"> Education loan guidance</label>
-                        <label style="font-weight:normal;"><input type="checkbox" name="help_with" value="India vs Abroad comparison"> India vs Abroad comparison</label>
-                        <label style="font-weight:normal;"><input type="checkbox" name="help_with" value="Understanding my chances"> Understanding my chances</label>
-                        <label style="font-weight:normal;"><input type="checkbox" name="help_with" value="I'm not sure — I need complete guidance"> I'm not sure — I need complete guidance</label>
-                        <label style="font-weight:normal;"><input type="checkbox" name="help_with" value="Other" onchange="toggleOtherHelp(this)"> Other</label>
-                    </div>
-                    <input type="text" id="other_help" name="other_help" placeholder="Please specify other requirement" style="display:none; margin-top:8px;">
-                </div>
-
-                <!-- 5. Loan Assistance -->
-                <div class="input-group">
-                    <label>Do you require education loan assistance? *</label>
-                    <select name="loan_assistance" required>
-                        <option value="">Select Option</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                        <option value="Maybe">Maybe</option>
-                    </select>
-                </div>
-
-                <!-- 6. Hostel Required? -->
-                <div class="input-group">
-                    <label>Hostel Required? *</label>
-                    <select name="hostel_required" required>
-                        <option value="">Select Option</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                        <option value="Maybe">Maybe</option>
-                    </select>
-                </div>
-
-                <!-- 7. Preferred Fee Payment Option -->
-                <div class="input-group">
-                    <label>Preferred Fee Payment Option *</label>
-                    <select name="fee_payment_option" required>
-                        <option value="">Select Option</option>
-                        <option value="Full Payment">Full Payment</option>
-                        <option value="Semister-wise">Semister-wise</option>
-                        <option value="Installments">Installments</option>
-                        <option value="Education Loan">Education Loan</option>
-                        <option value="Scholarship">Scholarship</option>
-                        <option value="Not Sure">Not Sure</option>
-                    </select>
-                </div>
-
-                <!-- 8. Contacted College -->
-                <div class="input-group">
-                    <label>Have you already contacted any college/university? *</label>
-                    <select name="contacted_college" required>
-                        <option value="">Select Option</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-
-                <!-- 9. Annual Budget -->
-                <div class="input-group">
-                    <label>What is your approximate annual education budget? *</label>
-                    <select name="annual_budget" required>
-                        <option value="">Select Budget</option>
-                        <option value="Under ₹1 Lakhs">Under ₹1 Lakhs</option>
-                        <option value="₹1 - 3 Lakhs">₹1 - 3 Lakhs</option>
-                        <option value="₹3 - 5 Lakhs">₹3 - 5 Lakhs</option>
-                        <option value="₹5 - 10 Lakhs">₹5 - 10 Lakhs</option>
-                        <option value="₹10 - 20 Lakhs">₹10 - 20 Lakhs</option>
-                        <option value="₹20 - 50 Lakhs">₹20 - 50 Lakhs</option>
-                        <option value="₹50 Lakhs+">₹50 Lakhs+</option>
-                        <option value="Not Sure - I need guidance">Not Sure - I need guidance</option>
-                    </select>
-                </div>
-
-                <!-- 11. Desired Colleges (5 inputs with state) -->
-                <div class="input-group">
-                    <label>Desired College Preferences (Optional)</label>
-                    <div class="desc-text">If you have desired college enter name and state otherwise leave it blank</div>
+            <div class="form-body">
+                <form id="leadForm">
                     
-                    <div class="college-row"><input type="text" name="col_name_1" placeholder="College Name 1"><input type="text" name="col_state_1" placeholder="State 1"></div>
-                    <div class="college-row"><input type="text" name="col_name_2" placeholder="College Name 2"><input type="text" name="col_state_2" placeholder="State 2"></div>
-                    <div class="college-row"><input type="text" name="col_name_3" placeholder="College Name 3"><input type="text" name="col_state_3" placeholder="State 3"></div>
-                    <div class="college-row"><input type="text" name="col_name_4" placeholder="College Name 4"><input type="text" name="col_state_4" placeholder="State 4"></div>
-                    <div class="college-row"><input type="text" name="col_name_5" placeholder="College Name 5"><input type="text" name="col_state_5" placeholder="State 5"></div>
-                </div>
-
-                <!-- 12. Aadhar Attachment -->
-                <div class="input-group">
-                    <label>Aadhar Attachment (PDF or Image only)</label>
-                    <input type="file" name="aadhar_doc" accept=".pdf,image/*" style="padding:6px;">
-                </div>
-
-                <!-- Communication Consent & Mandatory Tick Box -->
-                <div class="input-group" style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #cbd5e1;">
-                    <label style="color:#0f172a; margin-bottom:4px;">Communication Consent *</label>
-                    <div style="font-size:12.5px; color:#475569; margin-bottom:8px;">
-                        I agree to be contacted by CounselScope via WhatsApp or phone call regarding my career counseling and admission requirements.
+                    <!-- Section 1: Personal Details -->
+                    <div class="form-section">
+                        <div class="section-title">👤 Personal Information</div>
+                        <div class="input-group">
+                            <label>Student Name *</label>
+                            <input type="text" id="student_name" name="student_name" required placeholder="Enter your full name">
+                        </div>
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label>Father's Name</label>
+                                <input type="text" id="father_name" name="father_name" placeholder="Father's name">
+                            </div>
+                            <div class="input-group">
+                                <label>Student Email ID *</label>
+                                <input type="email" id="student_email" name="student_email" required placeholder="name@example.com">
+                            </div>
+                        </div>
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label>Contact Number *</label>
+                                <input type="tel" id="contact_number" name="contact_number" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
+                            </div>
+                            <div class="input-group">
+                                <label>Alternate Number</label>
+                                <input type="tel" id="alternate_number" name="alternate_number" placeholder="Alternate phone">
+                            </div>
+                        </div>
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label>State *</label>
+                                <select id="state" name="state" required>
+                                    <option value="">Select State</option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="West Bengal">West Bengal</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>City *</label>
+                                <input type="text" id="city" name="city" required placeholder="Enter city">
+                            </div>
+                        </div>
                     </div>
-                    <div class="checkbox-group" style="margin:0;">
+
+                    <!-- Section 2: Academic Background & Uploads -->
+                    <div class="form-section">
+                        <div class="section-title">🎓 Academic Background & Marksheets</div>
+                        <div class="input-group">
+                            <label>Current Education Level</label>
+                            <select id="current_education_level" name="current_education_level" onchange="toggleEducationExtras()">
+                                <option value="">Select Level</option>
+                                <option value="UG">Undergraduate (UG)</option>
+                                <option value="PG">Postgraduate (PG)</option>
+                                <option value="MBA">MBA / Professional</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div id="educationExtras" style="display:none; margin-top:10px; background:#fff; padding:10px; border-radius:8px; border:1px dashed #cbd5e1;">
+                                <label style="font-size:12px;">Scorecard / Marksheet & Percentage (%)</label>
+                                <input type="file" name="edu_scorecard" accept=".pdf,image/*" style="margin-bottom:8px; padding:6px;">
+                                <input type="text" name="edu_percentage" placeholder="Enter % or CGPA (e.g. 85%)">
+                            </div>
+                        </div>
+
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label>Class 10th Details</label>
+                                <input type="text" name="class_10_percentage" placeholder="10th % / CGPA" style="margin-bottom:6px;">
+                                <input type="file" name="class_10_doc" accept=".pdf,image/*" style="padding:5px; font-size:12px;">
+                            </div>
+                            <div class="input-group">
+                                <label>Class 12th Details</label>
+                                <input type="text" name="class_12_percentage" placeholder="12th % / CGPA" style="margin-bottom:6px;">
+                                <input type="file" name="class_12_doc" accept=".pdf,image/*" style="padding:5px; font-size:12px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Course & Counselling Preferences -->
+                    <div class="form-section">
+                        <div class="section-title">📋 Course & Counselling Preferences</div>
+                        <div class="input-group">
+                            <label>Which course are you interested in? *</label>
+                            <select id="course_interest" name="course_interest" required onchange="toggleOther('course_interest', 'other_course')">
+                                <option value="">Select Course</option>
+                                <option value="FYJC / Class 11">FYJC / Class 11</option>
+                                <option value="B.Tech / B.E">B.Tech / B.E</option>
+                                <option value="MBBS / BDS">MBBS / BDS</option>
+                                <option value="B.Sc / B.Com / B.A">B.Sc / B.Com / B.A</option>
+                                <option value="BBA / BCA">BBA / BCA</option>
+                                <option value="LLB / BA LLB">LLB / BA LLB</option>
+                                <option value="MBA / PGDM">MBA / PGDM</option>
+                                <option value="MCA / M.Com">MCA / M.Com</option>
+                                <option value="Study Abroad">Study Abroad</option>
+                                <option value="Not Sure - Need Guidance">Not Sure - Need Career Guidance</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <input type="text" id="other_course" name="other_course" placeholder="Please specify course" style="display:none; margin-top:8px;">
+                        </div>
+
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label>How did you hear about us? *</label>
+                                <select name="hear_about" required onchange="toggleOther('hear_about', 'other_source')">
+                                    <option value="">Select Source</option>
+                                    <option value="Google Search">Google Search</option>
+                                    <option value="Instagram / Facebook">Instagram / Facebook</option>
+                                    <option value="YouTube">YouTube</option>
+                                    <option value="WhatsApp">WhatsApp</option>
+                                    <option value="Friend / Family">Friend / Family</option>
+                                    <option value="College Reference">College Reference</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <input type="text" id="other_source" name="other_source" placeholder="Specify source" style="display:none; margin-top:8px;">
+                            </div>
+                            <div class="input-group">
+                                <label>Preferred Counselling Time *</label>
+                                <select name="preferred_time" required>
+                                    <option value="">Select Time Slot</option>
+                                    <option value="9 AM - 11 AM">9 AM - 11 AM</option>
+                                    <option value="11 AM - 1 PM">11 AM - 1 PM</option>
+                                    <option value="1 PM - 3 PM">1 PM - 3 PM</option>
+                                    <option value="3 PM - 5 PM">3 PM - 5 PM</option>
+                                    <option value="5 PM - 7 PM">5 PM - 7 PM</option>
+                                    <option value="7 PM - 8 PM">7 PM - 8 PM</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-group" style="margin-top:12px;">
+                            <label>What would you like help with?</label>
+                            <div class="desc-text">Select everything you want help with. We'll discuss these during your FREE counseling session.</div>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="Finding suitable colleges"> Finding suitable colleges</label>
+                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="Finding colleges within my budget"> Finding colleges within my budget</label>
+                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="Course & career selection"> Course & career selection</label>
+                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="Admission process & Direct admission"> Admission process & Direct admission options</label>
+                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="Scholarship & Education loan guidance"> Scholarship & Education loan guidance</label>
+                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="India vs Abroad comparison"> India vs Abroad comparison</label>
+                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="I'm not sure — Complete guidance"> I'm not sure — Complete guidance</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Financial & Additional Preferences -->
+                    <div class="form-section">
+                        <div class="section-title">💰 Budget, Loan & Logistics</div>
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label>Annual Education Budget *</label>
+                                <select name="annual_budget" required>
+                                    <option value="">Select Budget</option>
+                                    <option value="Under ₹1 Lakhs">Under ₹1 Lakhs</option>
+                                    <option value="₹1 - 3 Lakhs">₹1 - 3 Lakhs</option>
+                                    <option value="₹3 - 5 Lakhs">₹3 - 5 Lakhs</option>
+                                    <option value="₹5 - 10 Lakhs">₹5 - 10 Lakhs</option>
+                                    <option value="₹10 - 20 Lakhs">₹10 - 20 Lakhs</option>
+                                    <option value="₹20 Lakhs+">₹20 Lakhs+</option>
+                                    <option value="Not Sure">Not Sure - Need guidance</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Preferred Fee Payment *</label>
+                                <select name="fee_payment_option" required>
+                                    <option value="">Select Option</option>
+                                    <option value="Full Payment">Full Payment</option>
+                                    <option value="Semister-wise">Semister-wise</option>
+                                    <option value="Installments">Installments</option>
+                                    <option value="Education Loan">Education Loan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row-2" style="margin-top:12px;">
+                            <div class="input-group">
+                                <label>Education Loan Assistance? *</label>
+                                <select name="loan_assistance" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="Maybe">Maybe</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Hostel Required? *</label>
+                                <select name="hostel_required" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="Maybe">Maybe</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-group" style="margin-top:12px;">
+                            <label>Have you already contacted any college? *</label>
+                            <select name="contacted_college" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Desired Colleges & Documents -->
+                    <div class="form-section">
+                        <div class="section-title">🏛️ College Preferences & Aadhar ID</div>
+                        <div class="desc-text">If you have a desired college, enter name and state (optional).</div>
+                        
+                        <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_1" placeholder="College Name 1"><input type="text" name="col_state_1" placeholder="State 1"></div>
+                        <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_2" placeholder="College Name 2"><input type="text" name="col_state_2" placeholder="State 2"></div>
+                        <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_3" placeholder="College Name 3"><input type="text" name="col_state_3" placeholder="State 3"></div>
+                        
+                        <div class="input-group" style="margin-top:15px;">
+                            <label>Aadhar Attachment (PDF or Image only)</label>
+                            <input type="file" name="aadhar_doc" accept=".pdf,image/*" style="padding:6px; background:#fff;">
+                        </div>
+                    </div>
+
+                    <!-- Communication Consent Mandatory Checkbox -->
+                    <div class="consent-box">
                         <input type="checkbox" id="consent_checkbox" required>
-                        <label for="consent_checkbox"><strong>I agree and tick to submit enquiry</strong></label>
+                        <label for="consent_checkbox">
+                            I agree to be contacted by CounselScope via WhatsApp or phone call regarding my career counseling and admission requirements. *
+                        </label>
                     </div>
-                </div>
 
-                <button type="submit" id="submitBtn">Submit Enquiry</button>
-            </form>
+                    <button type="submit" id="submitBtn" class="submit-btn">Submit Enquiry Now</button>
+                </form>
+            </div>
         </div>
 
         <div id="thankYouMessage">
-            <div class="logo-container">
-                <img src="logo.png" alt="CounselScope Logo" style="max-width: 130px;">
+            <div class="form-header" style="border-radius:12px; margin-bottom:20px;">
+                <img src="https://i.ibb.co/6R6t2Y0/unnamed.jpg" alt="Logo" style="max-width:100px;">
+                <h3>🎉 Enquiry Submitted Successfully!</h3>
+                <p>Thank you for connecting with CounselScope. Our expert counselor will reach out to you shortly.</p>
             </div>
-            <h3>🎉 Thank You!</h3>
-            <p>Your enquiry has been successfully submitted. Our expert counselor will contact you shortly to guide you through your campus journey.</p>
         </div>
     </div>
 
@@ -327,26 +335,22 @@
             const val = document.getElementById('current_education_level').value;
             document.getElementById('educationExtras').style.display = val ? 'block' : 'none';
         }
-        function toggleOtherCourse(sel) {
-            document.getElementById('other_course').style.display = sel.value === 'Other' ? 'block' : 'none';
-        }
-        function toggleOtherSource(sel) {
-            document.getElementById('other_source').style.display = sel.value === 'Other' ? 'block' : 'none';
-        }
-        function toggleOtherHelp(chk) {
-            document.getElementById('other_help').style.display = chk.checked ? 'block' : 'none';
+        function toggleOther(selectId, inputId) {
+            const sel = document.getElementById(selectId);
+            const inp = document.getElementById(inputId);
+            inp.style.display = sel.value === 'Other' ? 'block' : 'none';
         }
 
         document.getElementById('leadForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const btn = document.getElementById('submitBtn');
-            btn.innerText = "Submitting...";
+            btn.innerText = "Submitting Data...";
             btn.disabled = true;
 
-            const formElement = document.getElementById('leadForm');
-            const formData = new FormData(formElement);
+            const formData = new FormData(this);
 
+            // Handle checkboxes array
             const helpList = [];
             document.querySelectorAll('input[name="help_with"]:checked').forEach(cb => {
                 helpList.push(cb.value);
@@ -365,13 +369,13 @@
                     document.getElementById('thankYouMessage').style.display = 'block';
                 } else {
                     alert('Error: ' + (result.message || 'Submission failed'));
-                    btn.innerText = "Submit Enquiry";
+                    btn.innerText = "Submit Enquiry Now";
                     btn.disabled = false;
                 }
             } catch (error) {
-                console.error('Error:', error);
-                alert('Something went wrong. Please try again.');
-                btn.innerText = "Submit Enquiry";
+                console.error('Submission Error:', error);
+                alert('Network error or server down. Please try again.');
+                btn.innerText = "Submit Enquiry Now";
                 btn.disabled = false;
             }
         });
