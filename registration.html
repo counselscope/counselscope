@@ -109,14 +109,8 @@
                         <option value="Uttar Pradesh">Uttar Pradesh</option>
                         <option value="Uttarakhand">Uttarakhand</option>
                         <option value="West Bengal">West Bengal</option>
-                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                        <option value="Chandigarh">Chandigarh</option>
-                        <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
                         <option value="Delhi">Delhi</option>
                         <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                        <option value="Ladakh">Ladakh</option>
-                        <option value="Lakshadweep">Lakshadweep</option>
-                        <option value="Puducherry">Puducherry</option>
                     </select>
                 </div>
 
@@ -125,13 +119,14 @@
                     <input type="text" id="city" name="city" required placeholder="Enter your city">
                 </div>
 
-                <!-- 10th & 12th Marks / Uploads -->
+                <!-- Class 10th Details -->
                 <div class="input-group" style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
                     <label style="color:#0f172a;">Class 10th Details</label>
                     <input type="text" name="class_10_percentage" placeholder="10th Percentage / CGPA" style="margin-bottom:8px;">
                     <input type="file" name="class_10_doc" accept=".pdf,image/*" style="padding:6px;">
                 </div>
 
+                <!-- Class 12th Details -->
                 <div class="input-group" style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
                     <label style="color:#0f172a;">Class 12th Details</label>
                     <input type="text" name="class_12_percentage" placeholder="12th Percentage / CGPA" style="margin-bottom:8px;">
@@ -310,7 +305,7 @@
                     </div>
                     <div class="checkbox-group" style="margin:0;">
                         <input type="checkbox" id="consent_checkbox" required>
-                        <label for="consent_checkbox"><strong>I agree to the terms and privacy policy</strong></label>
+                        <label for="consent_checkbox"><strong>I agree and tick to submit enquiry</strong></label>
                     </div>
                 </div>
 
@@ -352,7 +347,6 @@
             const formElement = document.getElementById('leadForm');
             const formData = new FormData(formElement);
 
-            // Collect checkboxes manually for array handling
             const helpList = [];
             document.querySelectorAll('input[name="help_with"]:checked').forEach(cb => {
                 helpList.push(cb.value);
