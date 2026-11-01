@@ -192,7 +192,7 @@
                         <div class="row-2">
                             <div class="input-group">
                                 <label>How did you hear about us? *</label>
-                                <select name="hear_about" required onchange="toggleOther('hear_about', 'other_source')">
+                                <select id="hear_about" name="hear_about" required onchange="toggleOther('hear_about', 'other_source')">
                                     <option value="">Select Source</option>
                                     <option value="Google Search">Google Search</option>
                                     <option value="Instagram / Facebook">Instagram / Facebook</option>
@@ -357,13 +357,9 @@
             formData.set('help_with_list', JSON.stringify(helpList));
 
             try {
-                // यहाँ अपने Render बैकएंड का पूरा URL डालें (जैसे: https://your-render-app-url.onrender.com/api/submit-lead)
-                const backendUrl = "https://YOUR-RENDER-APP-URL.onrender.com/api/submit-lead";
-
-                const response = await fetch(backendUrl, {
+                const response = await fetch('/api/submit-lead', {
                     method: 'POST',
-                    body: formData,
-                    credentials: 'include'
+                    body: formData
                 });
 
                 const result = await response.json();
