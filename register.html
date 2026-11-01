@@ -335,6 +335,7 @@
             const val = document.getElementById('current_education_level').value;
             document.getElementById('educationExtras').style.display = val ? 'block' : 'none';
         }
+        
         function toggleOther(selectId, inputId) {
             const sel = document.getElementById(selectId);
             const inp = document.getElementById(inputId);
@@ -350,20 +351,26 @@
 
             const formData = new FormData(this);
 
+            // Multiselect checkboxes JSON array formatting
             const helpList = [];
             document.querySelectorAll('input[name="help_with"]:checked').forEach(cb => {
                 helpList.push(cb.value);
             });
             formData.set('help_with_list', JSON.stringify(helpList));
 
+            // Dynamic endpoint detection (Same domain OR local Flask server fallback)
+            const submitUrl = window.location.origin.includes('http') && !window.location.origin.startsWith('file:') 
+                ? `${window.location.origin}/api/submit-lead` 
+                : 'http://127.0.0.1:5000/api/submit-lead';
+
             try {
-                const response = await fetch('/api/submit-lead', {
+                const response = await fetch(submitUrl, {
                     method: 'POST',
                     body: formData
                 });
 
                 const result = await response.json();
-                if (response.ok) {
+                if (response.ok && result.status === 'success') {
                     document.getElementById('formContainer').style.display = 'none';
                     document.getElementById('thankYouMessage').style.display = 'block';
                 } else {
@@ -373,7 +380,7 @@
                 }
             } catch (error) {
                 console.error('Submission Error:', error);
-                alert('Network error or server down. Please try again.');
+                alert('Network error or server down. Make sure app.py is running on port 5000.');
                 btn.innerText = "Submit Enquiry Now";
                 btn.disabled = false;
             }
