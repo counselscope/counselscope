@@ -351,17 +351,16 @@
 
             const formData = new FormData(this);
 
-            // Multiselect checkboxes JSON array formatting
             const helpList = [];
             document.querySelectorAll('input[name="help_with"]:checked').forEach(cb => {
                 helpList.push(cb.value);
             });
             formData.set('help_with_list', JSON.stringify(helpList));
 
-            // Dynamic endpoint detection (Same domain OR local Flask server fallback)
-            const submitUrl = window.location.origin.includes('http') && !window.location.origin.startsWith('file:') 
-                ? `${window.location.origin}/api/submit-lead` 
-                : 'http://127.0.0.1:5000/api/submit-lead';
+            // Automatically matches whatever port/domain app.py is running on (port 5000, 5001, or live URL)
+            const submitUrl = window.location.protocol === 'file:' 
+                ? 'http://127.0.0.1:5000/api/submit-lead' 
+                : `${window.location.origin}/api/submit-lead`;
 
             try {
                 const response = await fetch(submitUrl, {
@@ -380,7 +379,7 @@
                 }
             } catch (error) {
                 console.error('Submission Error:', error);
-                alert('Network error or server down. Make sure app.py is running on port 5000.');
+                alert('Network error or server down. Make sure app.py is running.');
                 btn.innerText = "Submit Enquiry Now";
                 btn.disabled = false;
             }
