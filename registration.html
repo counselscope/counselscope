@@ -3,383 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admission Enquiry - CounselScope</title>
+    <title>Student Counselling & Admission Form - CounselScope</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #cbd5e1;
-        }
-
         * { font-family: 'Plus Jakarta Sans', sans-serif; box-sizing: border-box; }
-        body { background: var(--bg-gradient); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 15px; }
-        
-        .form-wrapper { width: 100%; max-width: 600px; background: var(--card-bg); border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); overflow: hidden; border: 1px solid #e2e8f0; animation: fadeIn 0.5s ease-in-out; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .form-header { background: #0f172a; color: white; padding: 25px; text-align: center; }
-        .form-header img { max-width: 140px; margin-bottom: 10px; border-radius: 6px; }
-        .form-header h2 { margin: 0; font-size: 22px; font-weight: 700; color: #38bdf8; }
-        .form-header p { margin: 5px 0 0; font-size: 13px; color: #94a3b8; }
-
-        .form-body { padding: 30px; }
-        
-        .form-section { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; transition: 0.3s; }
-        .form-section:hover { border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-        .section-title { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; }
-
-        .input-group { margin-bottom: 15px; }
-        .input-group:last-child { margin-bottom: 0; }
-        label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: #475569; }
-        input, select, textarea { width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; background: #fff; transition: 0.2s; color: #334155; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
-        
-        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .desc-text { font-size: 11.5px; color: var(--text-muted); margin-bottom: 8px; font-style: italic; }
-
-        .checkbox-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 8px; max-height: 180px; overflow-y: auto; padding-right: 5px; }
-        .checkbox-item { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: normal; cursor: pointer; }
-        .checkbox-item input { width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
-
-        .consent-box { background: #eff6ff; border: 1px solid #bfdbfe; padding: 15px; border-radius: 10px; display: flex; align-items: flex-start; gap: 12px; margin-top: 20px; }
-        .consent-box input { width: 20px; height: 20px; margin-top: 2px; cursor: pointer; flex-shrink: 0; }
-        .consent-box label { font-size: 13px; color: #1e3a8a; line-height: 1.4; margin-bottom: 0; cursor: pointer; font-weight: 600; }
-
-        .submit-btn { width: 100%; padding: 14px; background: var(--primary); border: none; border-radius: 10px; color: white; font-weight: 700; font-size: 15px; cursor: pointer; transition: 0.2s; margin-top: 20px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
-        .submit-btn:hover { background: var(--primary-hover); }
-
-        #thankYouMessage { display: none; text-align: center; padding: 40px 20px; }
-        #thankYouMessage h3 { color: #16a34a; font-size: 26px; margin-bottom: 10px; }
-        #thankYouMessage p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
-
-        @media(max-width: 540px) {
-            .row-2 { grid-template-columns: 1fr; }
-            .form-body { padding: 20px; }
-        }
+        body { background: #f8fafc; color: #1e293b; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .form-container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); width: 100%; max-width: 750px; border: 1px solid #e2e8f0; }
+        .form-header { text-align: center; margin-bottom: 30px; }
+        .form-header img { max-width: 100px; border-radius: 8px; margin-bottom: 15px; }
+        .form-header h2 { color: #0f172a; font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+        .form-header p { color: #64748b; font-size: 14px; }
+        .status-banner { padding: 12px 18px; border-radius: 10px; margin-bottom: 25px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .status-granted { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+        .status-denied { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 8px; }
+        input, select, textarea { width: 100%; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 14px; color: #1e293b; background: #fff; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+        button.submit-btn { width: 100%; padding: 14px; background: #2563eb; border: none; border-radius: 10px; color: white; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        button.submit-btn:hover { background: #1d4ed8; }
+        @media(max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } .form-container { padding: 20px; } }
     </style>
 </head>
 <body>
 
-    <div class="form-wrapper">
-        <div id="formContainer">
-            <div class="form-header">
-                <img src="https://i.ibb.co/6R6t2Y0/unnamed.jpg" alt="CounselScope Logo">
-                <h2>Admission Enquiry Form</h2>
-                <p>From Counselling to Campus, We Are With You</p>
-            </div>
+    <div class="form-container">
+        <div class="form-header">
+            <img src="https://i.ibb.co/6R6t2Y0/unnamed.jpg" alt="Logo">
+            <h2>Student Counselling & Admission Form</h2>
+            <p>Fill out your details for expert academic guidance and admission assistance.</p>
+        </div>
+
+        <div id="authStatusBanner" class="status-banner status-denied">
+            <i class="fa-solid fa-lock"></i> <span id="bannerText">Checking Editing Access...</span>
+        </div>
+
+        <form id="studentRegistrationForm" onsubmit="submitStudentForm(event)">
+            <input type="hidden" id="lead_id" name="lead_id">
             
-            <div class="form-body">
-                <form id="leadForm" enctype="multipart/form-data">
-                    
-                    <!-- Section 1: Personal Details -->
-                    <div class="form-section">
-                        <div class="section-title">👤 Personal Information</div>
-                        <div class="input-group">
-                            <label>Student Name *</label>
-                            <input type="text" id="student_name" name="student_name" required placeholder="Enter your full name">
-                        </div>
-                        <div class="row-2">
-                            <div class="input-group">
-                                <label>Father's Name</label>
-                                <input type="text" id="father_name" name="father_name" placeholder="Father's name">
-                            </div>
-                            <div class="input-group">
-                                <label>Student Email ID *</label>
-                                <input type="email" id="student_email" name="student_email" required placeholder="name@example.com">
-                            </div>
-                        </div>
-                        <div class="row-2">
-                            <div class="input-group">
-                                <label>Contact Number *</label>
-                                <input type="tel" id="contact_number" name="contact_number" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
-                            </div>
-                            <div class="input-group">
-                                <label>Alternate Number</label>
-                                <input type="tel" id="alternate_number" name="alternate_number" placeholder="Alternate phone">
-                            </div>
-                        </div>
-                        <div class="row-2">
-                            <div class="input-group">
-                                <label>State *</label>
-                                <select id="state" name="state" required>
-                                    <option value="">Select State</option>
-                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                    <option value="Bihar">Bihar</option>
-                                    <option value="Delhi">Delhi</option>
-                                    <option value="Gujarat">Gujarat</option>
-                                    <option value="Haryana">Haryana</option>
-                                    <option value="Karnataka">Karnataka</option>
-                                    <option value="Maharashtra">Maharashtra</option>
-                                    <option value="Punjab">Punjab</option>
-                                    <option value="Rajasthan">Rajasthan</option>
-                                    <option value="Tamil Nadu">Tamil Nadu</option>
-                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                    <option value="West Bengal">West Bengal</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <label>City *</label>
-                                <input type="text" id="city" name="city" required placeholder="Enter city">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 2: Academic Background & Uploads -->
-                    <div class="form-section">
-                        <div class="section-title">🎓 Academic Background & Marksheets</div>
-                        <div class="input-group">
-                            <label>Current Education Level</label>
-                            <select id="current_education_level" name="current_education_level" onchange="toggleEducationExtras()">
-                                <option value="">Select Level</option>
-                                <option value="UG">Undergraduate (UG)</option>
-                                <option value="PG">Postgraduate (PG)</option>
-                                <option value="MBA">MBA / Professional</option>
-                                <option value="Other">Other</option>
-                            </select>
-                            <div id="educationExtras" style="display:none; margin-top:10px; background:#fff; padding:10px; border-radius:8px; border:1px dashed #cbd5e1;">
-                                <label style="font-size:12px;">Scorecard / Marksheet & Percentage (%)</label>
-                                <input type="file" name="edu_scorecard" accept=".pdf,image/*" style="margin-bottom:8px; padding:6px;">
-                                <input type="text" name="edu_percentage" placeholder="Enter % or CGPA (e.g. 85%)">
-                            </div>
-                        </div>
-
-                        <div class="row-2">
-                            <div class="input-group">
-                                <label>Class 10th Details</label>
-                                <input type="text" name="class_10_percentage" placeholder="10th % / CGPA" style="margin-bottom:6px;">
-                                <input type="file" name="class_10_doc" accept=".pdf,image/*" style="padding:5px; font-size:12px;">
-                            </div>
-                            <div class="input-group">
-                                <label>Class 12th Details</label>
-                                <input type="text" name="class_12_percentage" placeholder="12th % / CGPA" style="margin-bottom:6px;">
-                                <input type="file" name="class_12_doc" accept=".pdf,image/*" style="padding:5px; font-size:12px;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 3: Course & Counselling Preferences -->
-                    <div class="form-section">
-                        <div class="section-title">📋 Course & Counselling Preferences</div>
-                        <div class="input-group">
-                            <label>Which course are you interested in? *</label>
-                            <select id="course_interest" name="course_interest" required onchange="toggleOther('course_interest', 'other_course')">
-                                <option value="">Select Course</option>
-                                <option value="FYJC / Class 11">FYJC / Class 11</option>
-                                <option value="B.Tech / B.E">B.Tech / B.E</option>
-                                <option value="MBBS / BDS">MBBS / BDS</option>
-                                <option value="B.Sc / B.Com / B.A">B.Sc / B.Com / B.A</option>
-                                <option value="BBA / BCA">BBA / BCA</option>
-                                <option value="LLB / BA LLB">LLB / BA LLB</option>
-                                <option value="MBA / PGDM">MBA / PGDM</option>
-                                <option value="MCA / M.Com">MCA / M.Com</option>
-                                <option value="Study Abroad">Study Abroad</option>
-                                <option value="Not Sure - Need Guidance">Not Sure - Need Career Guidance</option>
-                                <option value="Other">Other</option>
-                            </select>
-                            <input type="text" id="other_course" name="other_course" placeholder="Please specify course" style="display:none; margin-top:8px;">
-                        </div>
-
-                        <div class="row-2">
-                            <div class="input-group">
-                                <label>How did you hear about us? *</label>
-                                <select id="hear_about" name="hear_about" required onchange="toggleOther('hear_about', 'other_source')">
-                                    <option value="">Select Source</option>
-                                    <option value="Google Search">Google Search</option>
-                                    <option value="Instagram / Facebook">Instagram / Facebook</option>
-                                    <option value="YouTube">YouTube</option>
-                                    <option value="WhatsApp">WhatsApp</option>
-                                    <option value="Friend / Family">Friend / Family</option>
-                                    <option value="College Reference">College Reference</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                                <input type="text" id="other_source" name="other_source" placeholder="Specify source" style="display:none; margin-top:8px;">
-                            </div>
-                            <div class="input-group">
-                                <label>Preferred Counselling Time *</label>
-                                <select name="preferred_time" required>
-                                    <option value="">Select Time Slot</option>
-                                    <option value="9 AM - 11 AM">9 AM - 11 AM</option>
-                                    <option value="11 AM - 1 PM">11 AM - 1 PM</option>
-                                    <option value="1 PM - 3 PM">1 PM - 3 PM</option>
-                                    <option value="3 PM - 5 PM">3 PM - 5 PM</option>
-                                    <option value="5 PM - 7 PM">5 PM - 7 PM</option>
-                                    <option value="7 PM - 8 PM">7 PM - 8 PM</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="input-group" style="margin-top:12px;">
-                            <label>What would you like help with?</label>
-                            <div class="desc-text">Select everything you want help with. We'll discuss these during your FREE counseling session.</div>
-                            <div class="checkbox-grid">
-                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="Finding suitable colleges"> Finding suitable colleges</label>
-                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="Finding colleges within my budget"> Finding colleges within my budget</label>
-                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="Course & career selection"> Course & career selection</label>
-                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="Admission process & Direct admission"> Admission process & Direct admission options</label>
-                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="Scholarship & Education loan guidance"> Scholarship & Education loan guidance</label>
-                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="India vs Abroad comparison"> India vs Abroad comparison</label>
-                                <label class="checkbox-item"><input type="checkbox" name="help_with" value="I'm not sure — Complete guidance"> I'm not sure — Complete guidance</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 4: Financial & Additional Preferences -->
-                    <div class="form-section">
-                        <div class="section-title">💰 Budget, Loan & Logistics</div>
-                        <div class="row-2">
-                            <div class="input-group">
-                                <label>Annual Education Budget *</label>
-                                <select name="annual_budget" required>
-                                    <option value="">Select Budget</option>
-                                    <option value="Under ₹1 Lakhs">Under ₹1 Lakhs</option>
-                                    <option value="₹1 - 3 Lakhs">₹1 - 3 Lakhs</option>
-                                    <option value="₹3 - 5 Lakhs">₹3 - 5 Lakhs</option>
-                                    <option value="₹5 - 10 Lakhs">₹5 - 10 Lakhs</option>
-                                    <option value="₹10 - 20 Lakhs">₹10 - 20 Lakhs</option>
-                                    <option value="₹20 Lakhs+">₹20 Lakhs+</option>
-                                    <option value="Not Sure">Not Sure - Need guidance</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <label>Preferred Fee Payment *</label>
-                                <select name="fee_payment_option" required>
-                                    <option value="">Select Option</option>
-                                    <option value="Full Payment">Full Payment</option>
-                                    <option value="Semister-wise">Semister-wise</option>
-                                    <option value="Installments">Installments</option>
-                                    <option value="Education Loan">Education Loan</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row-2" style="margin-top:12px;">
-                            <div class="input-group">
-                                <label>Education Loan Assistance? *</label>
-                                <select name="loan_assistance" required>
-                                    <option value="">Select</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                    <option value="Maybe">Maybe</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <label>Hostel Required? *</label>
-                                <select name="hostel_required" required>
-                                    <option value="">Select</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                    <option value="Maybe">Maybe</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="input-group" style="margin-top:12px;">
-                            <label>Have you already contacted any college? *</label>
-                            <select name="contacted_college" required>
-                                <option value="">Select</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Section 5: Desired Colleges & Documents -->
-                    <div class="form-section">
-                        <div class="section-title">🏛️ College Preferences & Aadhar ID</div>
-                        <div class="desc-text">If you have a desired college, enter name and state (optional).</div>
-                        
-                        <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_1" placeholder="College Name 1"><input type="text" name="col_state_1" placeholder="State 1"></div>
-                        <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_2" placeholder="College Name 2"><input type="text" name="col_state_2" placeholder="State 2"></div>
-                        <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_3" placeholder="College Name 3"><input type="text" name="col_state_3" placeholder="State 3"></div>
-                        <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_4" placeholder="College Name 4"><input type="text" name="col_state_4" placeholder="State 4"></div>
-                        <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_5" placeholder="College Name 5"><input type="text" name="col_state_5" placeholder="State 5"></div>
-                        
-                        <div class="input-group" style="margin-top:15px;">
-                            <label>Aadhar Attachment (PDF or Image only)</label>
-                            <input type="file" name="aadhar_doc" accept=".pdf,image/*" style="padding:6px; background:#fff;">
-                        </div>
-                    </div>
-
-                    <!-- Communication Consent Mandatory Checkbox -->
-                    <div class="consent-box">
-                        <input type="checkbox" id="consent_checkbox" required>
-                        <label for="consent_checkbox">
-                            I agree to be contacted by CounselScope via WhatsApp or phone call regarding my career counseling and admission requirements. *
-                        </label>
-                    </div>
-
-                    <button type="submit" id="submitBtn" class="submit-btn">Submit Enquiry Now</button>
-                </form>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Student Full Name *</label>
+                    <input type="text" id="student_name" name="student_name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Father's Name</label>
+                    <input type="text" id="father_name" name="father_name" placeholder="Enter father's name">
+                </div>
             </div>
-        </div>
 
-        <div id="thankYouMessage">
-            <div class="form-header" style="border-radius:12px; margin-bottom:20px;">
-                <img src="https://i.ibb.co/6R6t2Y0/unnamed.jpg" alt="Logo" style="max-width:100px;">
-                <h3>🎉 Enquiry Submitted Successfully!</h3>
-                <p>Thank you for connecting with CounselScope. Our expert counselor will reach out to you shortly.</p>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Contact Number *</label>
+                    <input type="text" id="contact_number" name="contact_number" required placeholder="10-digit mobile number">
+                </div>
+                <div class="form-group">
+                    <label>Student Email ID *</label>
+                    <input type="email" id="student_email" name="student_email" required placeholder="name@example.com">
+                </div>
             </div>
-        </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Current Education Level</label>
+                    <select id="current_education" name="current_education">
+                        <option value="12th Appearing/Passed">12th Appearing/Passed</option>
+                        <option value="Graduate">Graduate</option>
+                        <option value="Post Graduate">Post Graduate</option>
+                        <option value="Diploma">Diploma</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Course Interest</label>
+                    <input type="text" id="course_interest" name="course_interest" placeholder="e.g. B.Tech, MBA, MBBS">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>State</label>
+                    <input type="text" id="state" name="state" placeholder="State">
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" id="city" name="city" placeholder="City">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Approximate Budget</label>
+                    <input type="text" id="budget" name="budget" placeholder="e.g. 5 Lakhs - 10 Lakhs">
+                </div>
+                <div class="form-group">
+                    <label>Entrance Exam & Score</label>
+                    <input type="text" id="exam_score" name="exam_score" placeholder="e.g. JEE/NEET Score">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Aadhar Document</label>
+                    <input type="file" name="aadhar_file">
+                </div>
+                <div class="form-group">
+                    <label>12th Marksheet</label>
+                    <input type="file" name="class12_file">
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn" class="submit-btn">Submit Application</button>
+        </form>
     </div>
 
     <script>
-        function toggleEducationExtras() {
-            const val = document.getElementById('current_education_level').value;
-            document.getElementById('educationExtras').style.display = val ? 'block' : 'none';
-        }
-        function toggleOther(selectId, inputId) {
-            const sel = document.getElementById(selectId);
-            const inp = document.getElementById(inputId);
-            inp.style.display = sel.value === 'Other' ? 'block' : 'none';
-        }
-
-        document.getElementById('leadForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const btn = document.getElementById('submitBtn');
-            btn.innerText = "Submitting Data...";
-            btn.disabled = true;
-
-            const formData = new FormData(this);
-
-            const helpList = [];
-            document.querySelectorAll('input[name="help_with"]:checked').forEach(cb => {
-                helpList.push(cb.value);
-            });
-            formData.set('help_with_list', JSON.stringify(helpList));
-
+        async function checkStudentAccess() {
             try {
-                const response = await fetch('/api/submit-lead', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-                if (response.ok) {
-                    document.getElementById('formContainer').style.display = 'none';
-                    document.getElementById('thankYouMessage').style.display = 'block';
+                const res = await fetch('/api/student-auth-status');
+                const data = await res.json();
+                const banner = document.getElementById('authStatusBanner');
+                const bannerText = document.getElementById('bannerText');
+                
+                if(data.authorized && data.lead) {
+                    banner.className = "status-banner status-granted";
+                    bannerText.innerHTML = "Editing Access Granted! You can update your submitted details below.";
+                    
+                    const l = data.lead;
+                    document.getElementById('lead_id').value = l.id;
+                    document.getElementById('student_name').value = l.student_name || '';
+                    document.getElementById('father_name').value = l.father_name || '';
+                    document.getElementById('contact_number').value = l.contact_number || '';
+                    document.getElementById('student_email').value = l.student_email || '';
+                    document.getElementById('current_education').value = l.current_education || '';
+                    document.getElementById('course_interest').value = l.course_interest || '';
+                    document.getElementById('state').value = l.state || '';
+                    document.getElementById('city').value = l.city || '';
+                    document.getElementById('budget').value = l.budget || '';
+                    document.getElementById('exam_score').value = l.exam_score || '';
+                    document.getElementById('submitBtn').innerText = "Update My Application";
                 } else {
-                    alert('Error: ' + (result.message || 'Submission failed'));
-                    btn.innerText = "Submit Enquiry Now";
-                    btn.disabled = false;
+                    banner.className = "status-banner status-denied";
+                    bannerText.innerHTML = data.message || "Editing Access Not Available. You can submit a new enquiry.";
                 }
-            } catch (error) {
-                console.error('Submission Error:', error);
-                alert('Network error or GitHub API commit failed. Please try again.');
-                btn.innerText = "Submit Enquiry Now";
-                btn.disabled = false;
+            } catch(e) {
+                console.error(e);
             }
-        });
+        }
+
+        async function submitStudentForm(e) {
+            e.preventDefault();
+            const formEl = document.getElementById('studentRegistrationForm');
+            const formData = new FormData(formEl);
+
+            const res = await fetch('/api/submit-lead', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await res.json();
+            if(res.ok) {
+                alert(result.message || "Successfully submitted!");
+                location.reload();
+            } else {
+                alert("Error: " + (result.message || "Failed to submit"));
+            }
+        }
+
+        checkStudentAccess();
     </script>
 </body>
 </html>
