@@ -53,6 +53,11 @@
                     <label>Student Email ID *</label>
                     <input type="email" id="student_email" name="student_email" required placeholder="student@example.com">
                 </div>
+                <!-- Added Current Education Level field here -->
+                <div class="input-group">
+                    <label>Current Education Level *</label>
+                    <input type="text" id="current_education_level" name="current_education_level" required placeholder="e.g. 12th Pass, Graduate, etc.">
+                </div>
                 <div class="input-group">
                     <label>State *</label>
                     <select id="state" name="state" required>
@@ -92,7 +97,6 @@
                     <label>City *</label>
                     <input type="text" id="city" name="city" required placeholder="Enter your city">
                 </div>
-                <!-- [Redacted ID] Card Upload Field Added -->
                 <div class="input-group">
                     <label>[Redacted ID] Document / Card (Image/PDF) *</label>
                     <input type="file" id="id_document" name="id_document" accept="image/*,.pdf" required style="padding: 9px;">
@@ -124,6 +128,7 @@
             formData.append('contact_number', document.getElementById('contact_number').value);
             formData.append('alternate_number', document.getElementById('alternate_number').value);
             formData.append('student_email', document.getElementById('student_email').value);
+            formData.append('current_education_level', document.getElementById('current_education_level').value);
             formData.append('state', document.getElementById('state').value);
             formData.append('city', document.getElementById('city').value);
             
