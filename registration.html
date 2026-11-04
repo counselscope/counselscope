@@ -157,8 +157,8 @@
                     <div class="form-section">
                         <div class="section-title">🎓 Academic Background & Marksheets</div>
                         <div class="input-group">
-                            <label>Current Education Level</label>
-                            <select id="current_education_level" name="current_education_level" onchange="toggleEducationExtras()">
+                            <label>Current Education Level *</label>
+                            <select id="current_education_level" name="current_education_level" required onchange="toggleEducationExtras()">
                                 <option value="">Select Level</option>
                                 <option value="12th Pass">12th Pass</option>
                                 <option value="UG">Undergraduate (UG)</option>
@@ -210,12 +210,6 @@
                                 <option value="Other">Other</option>
                             </select>
                             <input type="text" id="other_course" name="other_course" placeholder="Please specify course" style="display:none; margin-top:8px;">
-                            
-                            <!-- Dynamic Course Scorecard Upload Field -->
-                            <div id="dynamicCourseUploadBox" class="dynamic-upload-box">
-                                <label style="font-size:12px; font-weight:600; color:#1e293b;">Upload Course Scorecard / Certificate (Optional)</label>
-                                <input type="file" name="course_scorecard" accept=".pdf,image/*" style="padding:6px; background:#fff;">
-                            </div>
                         </div>
 
                         <div class="row-2">
@@ -332,7 +326,7 @@
                         <div class="row-2" style="margin-bottom:8px;"><input type="text" name="col_name_3" placeholder="College Name 3"><input type="text" name="col_state_3" placeholder="State 3"></div>
                         
                         <div class="input-group" style="margin-top:15px;">
-                            <label>Primary ID Document / Card (Image/PDF) *</label>
+                            <label>ID Document / Card (Image/PDF) *</label>
                             <input type="file" id="id_document" name="id_document" accept="image/*,.pdf" required style="padding: 6px; background:#fff;">
                         </div>
 
@@ -350,7 +344,7 @@
                         </label>
                     </div>
 
-                    <button type="submit" id="submitBtn" class="submit-btn">Submit Enquiry Now</button>
+                    <button type="submit" id="submitBtn" class="submit-btn">Submit Enquiry</button>
                 </form>
             </div>
         </div>
@@ -358,8 +352,8 @@
         <div id="thankYouMessage">
             <div class="form-header" style="border-radius:12px; margin-bottom:20px;">
                 <img src="https://i.ibb.co/6R6t2Y0/unnamed.jpg" alt="Logo" style="max-width:100px;">
-                <h3>🎉 Enquiry Submitted Successfully!</h3>
-                <p>Thank you for connecting with CounselScope. Our expert counselor will reach out to you shortly.</p>
+                <h3>🎉 Thank You!</h3>
+                <p>Your enquiry and documents have been successfully submitted. Our expert counselor will contact you shortly.</p>
             </div>
         </div>
     </div>
@@ -378,22 +372,13 @@
 
         function handleCourseSelection() {
             const courseSelect = document.getElementById('course_interest');
-            const uploadBox = document.getElementById('dynamicCourseUploadBox');
             const otherInput = document.getElementById('other_course');
 
-            // Handle 'Other' course specification input
             if (courseSelect.value === 'Other') {
                 otherInput.style.display = 'block';
             } else {
                 otherInput.style.display = 'none';
                 otherInput.value = '';
-            }
-
-            // Dynamically show/hide course scorecard upload when a course is selected
-            if (courseSelect.value && courseSelect.value !== '') {
-                uploadBox.style.display = 'block';
-            } else {
-                uploadBox.style.display = 'none';
             }
         }
 
@@ -401,25 +386,50 @@
             e.preventDefault();
             
             const btn = document.getElementById('submitBtn');
-            btn.innerText = "Submitting Data...";
+            btn.innerText = "Submitting with Document...";
             btn.disabled = true;
 
-            const formData = new FormData(this);
+            const formData = new FormData();
+            formData.append('student_name', document.getElementById('student_name').value);
+            formData.append('father_name', document.getElementById('father_name').value);
+            formData.append('contact_number', document.getElementById('contact_number').value);
+            formData.append('alternate_number', document.getElementById('alternate_number').value);
+            formData.append('student_email', document.getElementById('student_email').value);
+            formData.append('current_education_level', document.getElementById('current_education_level').value);
+            formData.append('state', document.getElementById('state').value);
+            formData.append('city', document.getElementById('city').value);
+            
+            // Append optional fields present in the form if needed or let formData handle inputs
+            const p10 = document.querySelector('input[name="percentage_10th"]');
+            if (p10 && p10.value) formData.append('percentage_10th', p10.value);
 
-            const helpList = [];
-            document.querySelectorAll('input[name="help_with"]:checked').forEach(cb => {
-                helpList.push(cb.value);
-            });
-            formData.set('help_with_list', JSON.stringify(helpList));
+            const p12 = document.querySelector('input[name="percentage_12th"]');
+            if (p12 && p12.value) formData.append('percentage_12th', p12.value);
 
-            // Map course_interest to course_details for backend compatibility if needed
-            const courseInterestVal = document.getElementById('course_interest').value;
-            if (courseInterestVal) {
-                formData.set('course_details', courseInterestVal === 'Other' ? document.getElementById('other_course').value : courseInterestVal);
+            const courseInterest = document.getElementById('course_interest').value;
+            if (courseInterest) {
+                formData.append('course_details', courseInterest === 'Other' ? document.getElementById('other_course').value : courseInterest);
+                formData.append('course_interest', courseInterest);
             }
 
+            const fileField = document.getElementById('id_document');
+            if (fileField.files.length > 0) {
+                formData.append('id_document', fileField.files[0]);
+            }
+
+            const aadharField = document.querySelector('inputname="aadhar_doc"');
+            // If any additional files or fields exist, safely append them
+            const doc10 = document.querySelector('input[name="class_10_doc"]');
+            if (doc10 && doc10.files.length > 0) formData.append('class_10_doc', doc10.files[0]);
+
+            const doc12 = document.querySelector('input[name="class_12_doc"]');
+            if (doc12 && doc12.files.length > 0) formData.append('class_12_doc', doc12.files[0]);
+
+            const aadharDoc = document.querySelector('input[name="aadhar_doc"]');
+            if (aadharDoc && aadharDoc.files.length > 0) formData.append('aadhar_doc', aadharDoc.files[0]);
+
             try {
-                const response = await fetch('/api/submit-lead', {
+                const response = await fetch('https://counselscope-crm.onrender.com/api/submit-lead', {
                     method: 'POST',
                     body: formData
                 });
@@ -430,13 +440,13 @@
                     document.getElementById('thankYouMessage').style.display = 'block';
                 } else {
                     alert('Error: ' + (result.message || 'Submission failed'));
-                    btn.innerText = "Submit Enquiry Now";
+                    btn.innerText = "Submit Enquiry";
                     btn.disabled = false;
                 }
             } catch (error) {
-                console.error('Submission Error:', error);
-                alert('Network error or server down. Please try again.');
-                btn.innerText = "Submit Enquiry Now";
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+                btn.innerText = "Submit Enquiry";
                 btn.disabled = false;
             }
         });
