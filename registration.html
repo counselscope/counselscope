@@ -161,9 +161,8 @@
                             <select id="current_education_level" name="current_education_level" required onchange="toggleEducationExtras()">
                                 <option value="">Select Level</option>
                                 <option value="12th Pass">12th Pass</option>
-                                <option value="UG">Undergraduate (UG)</option>
-                                <option value="PG">Postgraduate (PG)</option>
-                                <option value="MBA">MBA / Professional</option>
+                                <option value="Undergraduate (UG)">Undergraduate (UG)</option>
+                                <option value="Postgraduate (PG)">Postgraduate (PG)</option>
                                 <option value="Diploma">Diploma</option>
                                 <option value="Other">Other</option>
                             </select>
@@ -350,7 +349,7 @@
         </div>
 
         <div id="thankYouMessage">
-            <div class="form-header" style="border-radius:12px; margin-bottom:20px;">
+            <div class="logo-header" style="border-radius:12px; margin-bottom:20px;">
                 <img src="https://i.ibb.co/6R6t2Y0/unnamed.jpg" alt="Logo" style="max-width:100px;">
                 <h3>🎉 Thank You!</h3>
                 <p>Your enquiry and documents have been successfully submitted. Our expert counselor will contact you shortly.</p>
@@ -399,7 +398,6 @@
             formData.append('state', document.getElementById('state').value);
             formData.append('city', document.getElementById('city').value);
             
-            // Append optional fields present in the form if needed or let formData handle inputs
             const p10 = document.querySelector('input[name="percentage_10th"]');
             if (p10 && p10.value) formData.append('percentage_10th', p10.value);
 
@@ -417,8 +415,6 @@
                 formData.append('id_document', fileField.files[0]);
             }
 
-            const aadharField = document.querySelector('inputname="aadhar_doc"');
-            // If any additional files or fields exist, safely append them
             const doc10 = document.querySelector('input[name="class_10_doc"]');
             if (doc10 && doc10.files.length > 0) formData.append('class_10_doc', doc10.files[0]);
 
