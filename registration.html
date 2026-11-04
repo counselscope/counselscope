@@ -3,114 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Admission Enquiry - CounselScope</title>
+    <title>Admission Enquiry - CounselScope</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
-        .form-box { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); width: 100%; max-width: 480px; box-sizing: border-box; border: 1px solid #e2e8f0; }
-        .logo-container { text-align: center; margin-bottom: 20px; }
-        .logo-container img { max-width: 160px; height: auto; }
-        h2 { margin-top: 0; color: #0f172a; text-align: center; margin-bottom: 8px; font-size: 22px; font-weight: 700; }
-        .subtitle { text-align: center; color: #64748b; font-size: 13.5px; margin-bottom: 25px; }
-        .input-group { margin-bottom: 16px; }
-        label { display: block; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: #475569; }
-        input, select { width: 100%; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box; background: #fff; transition: 0.2s; color: #334155; }
-        input:focus, select:focus { outline: none; border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
-        button { width: 100%; padding: 12px; background: #0284c7; border: none; border-radius: 8px; color: white; font-weight: 600; font-size: 16px; cursor: pointer; transition: 0.2s; margin-top: 10px; }
-        button:hover { background: #0369a1; }
-        #thankYouMessage { display: none; text-align: center; padding: 20px 0; }
-        #thankYouMessage h3 { color: #16a34a; font-size: 26px; margin-bottom: 12px; }
-        #thankYouMessage p { color: #64748b; font-size: 14.5px; line-height: 1.5; }
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+        }
+
+        * { font-family: 'Plus Jakarta Sans', sans-serif; box-sizing: border-box; }
+        body { background: var(--bg-gradient); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 15px; }
+        
+        .form-wrapper { width: 100%; max-width: 600px; background: var(--card-bg); border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); overflow: hidden; border: 1px solid #e2e8f0; animation: fadeIn 0.5s ease-in-out; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-header { background: #0f172a; color: white; padding: 25px; text-align: center; }
+        .form-header img { max-width: 140px; margin-bottom: 10px; border-radius: 6px; }
+        .form-header h2 { margin: 0; font-size: 22px; font-weight: 700; color: #38bdf8; }
+        .form-header p { margin: 5px 0 0; font-size: 13px; color: #94a3b8; }
+
+        .form-body { padding: 30px; }
+        
+        .form-section { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; transition: 0.3s; }
+        .form-section:hover { border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .section-title { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; }
+
+        .input-group { margin-bottom: 15px; }
+        .input-group:last-child { margin-bottom: 0; }
+        label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: #475569; }
+        input, select, textarea { width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; background: #fff; transition: 0.2s; color: #334155; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+        
+        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .desc-text { font-size: 11.5px; color: var(--text-muted); margin-bottom: 8px; font-style: italic; }
+
+        .consent-box { background: #eff6ff; border: 1px solid #bfdbfe; padding: 15px; border-radius: 10px; display: flex; align-items: flex-start; gap: 12px; margin-top: 20px; }
+        .consent-box input { width: 20px; height: 20px; margin-top: 2px; cursor: pointer; flex-shrink: 0; }
+        .consent-box label { font-size: 13px; color: #1e3a8a; line-height: 1.4; margin-bottom: 0; cursor: pointer; font-weight: 600; }
+
+        .submit-btn { width: 100%; padding: 14px; background: var(--primary); border: none; border-radius: 10px; color: white; font-weight: 700; font-size: 15px; cursor: pointer; transition: 0.2s; margin-top: 20px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+        .submit-btn:hover { background: var(--primary-hover); }
+
+        #thankYouMessage { display: none; text-align: center; padding: 40px 20px; }
+        #thankYouMessage h3 { color: #16a34a; font-size: 26px; margin-bottom: 10px; }
+        #thankYouMessage p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
+
+        @media(max-width: 540px) {
+            .row-2 { grid-template-columns: 1fr; }
+            .form-body { padding: 20px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="form-box">
+    <div class="form-wrapper">
         <div id="formContainer">
-            <div class="logo-container">
-                <img src="logo.png" alt="CounselScope Logo">
+            <div class="form-header">
+                <img src="https://i.ibb.co/6R6t2Y0/unnamed.jpg" alt="CounselScope Logo">
+                <h2>Admission Enquiry Form</h2>
+                <p>From Counselling to Campus, We Are With You</p>
             </div>
-            <h2>Admission Enquiry Form</h2>
-            <div class="subtitle">From Counselling to Campus, We Are With You</div>
             
-            <form id="leadForm">
-                <div class="input-group">
-                    <label>Student Name *</label>
-                    <input type="text" id="student_name" name="student_name" required placeholder="Enter student full name">
-                </div>
-                <div class="input-group">
-                    <label>Father's Name</label>
-                    <input type="text" id="father_name" name="father_name" placeholder="Enter father's name">
-                </div>
-                <div class="input-group">
-                    <label>Contact Number *</label>
-                    <input type="tel" id="contact_number" name="contact_number" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
-                </div>
-                <div class="input-group">
-                    <label>Alternate Contact Number</label>
-                    <input type="tel" id="alternate_number" name="alternate_number" placeholder="Alternate phone number">
-                </div>
-                <div class="input-group">
-                    <label>Student Email ID *</label>
-                    <input type="email" id="student_email" name="student_email" required placeholder="student@example.com">
-                </div>
-                <!-- Added Current Education Level field here -->
-                <div class="input-group">
-                    <label>Current Education Level *</label>
-                    <input type="text" id="current_education_level" name="current_education_level" required placeholder="e.g. 12th Pass, Graduate, etc.">
-                </div>
-                <div class="input-group">
-                    <label>State *</label>
-                    <select id="state" name="state" required>
-                        <option value="">Select State</option>
-                        <option value="Andhra Pradesh">Andhra Pradesh</option>
-                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                        <option value="Assam">Assam</option>
-                        <option value="Bihar">Bihar</option>
-                        <option value="Chhattisgarh">Chhattisgarh</option>
-                        <option value="Goa">Goa</option>
-                        <option value="Gujarat">Gujarat</option>
-                        <option value="Haryana">Haryana</option>
-                        <option value="Himachal Pradesh">Himachal Pradesh</option>
-                        <option value="Jharkhand">Jharkhand</option>
-                        <option value="Karnataka">Karnataka</option>
-                        <option value="Kerala">Kerala</option>
-                        <option value="Madhya Pradesh">Madhya Pradesh</option>
-                        <option value="Maharashtra">Maharashtra</option>
-                        <option value="Manipur">Manipur</option>
-                        <option value="Meghalaya">Meghalaya</option>
-                        <option value="Mizoram">Mizoram</option>
-                        <option value="Nagaland">Nagaland</option>
-                        <option value="Odisha">Odisha</option>
-                        <option value="Punjab">Punjab</option>
-                        <option value="Rajasthan">Rajasthan</option>
-                        <option value="Sikkim">Sikkim</option>
-                        <option value="Tamil Nadu">Tamil Nadu</option>
-                        <option value="Telangana">Telangana</option>
-                        <option value="Tripura">Tripura</option>
-                        <option value="Uttar Pradesh">Uttar Pradesh</option>
-                        <option value="Uttarakhand">Uttarakhand</option>
-                        <option value="West Bengal">West Bengal</option>
-                        <option value="Delhi">Delhi</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>City *</label>
-                    <input type="text" id="city" name="city" required placeholder="Enter your city">
-                </div>
-                <div class="input-group">
-                    <label>[Redacted ID] Document / Card (Image/PDF) *</label>
-                    <input type="file" id="id_document" name="id_document" accept="image/*,.pdf" required style="padding: 9px;">
-                </div>
-                <button type="submit" id="submitBtn">Submit Enquiry</button>
-            </form>
+            <div class="form-body">
+                <form id="leadForm">
+                    
+                    <!-- Section 1: Personal Information -->
+                    <div class="form-section">
+                        <div class="section-title">👤 Personal Information</div>
+                        <div class="input-group">
+                            <label>Student Name *</label>
+                            <input type="text" id="student_name" name="student_name" required placeholder="Enter student full name">
+                        </div>
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label>Father's Name</label>
+                                <input type="text" id="father_name" name="father_name" placeholder="Enter father's name">
+                            </div>
+                            <div class="input-group">
+                                <label>Student Email ID *</label>
+                                <input type="email" id="student_email" name="student_email" required placeholder="student@example.com">
+                            </div>
+                        </div>
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label>Contact Number *</label>
+                                <input type="tel" id="contact_number" name="contact_number" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
+                            </div>
+                            <div class="input-group">
+                                <label>Alternate Contact Number</label>
+                                <input type="tel" id="alternate_number" name="alternate_number" placeholder="Alternate phone number">
+                            </div>
+                        </div>
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label>State *</label>
+                                <select id="state" name="state" required>
+                                    <option value="">Select State</option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Goa">Goa</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    <option value="Jharkhand">Jharkhand</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Manipur">Manipur</option>
+                                    <option value="Meghalaya">Meghalaya</option>
+                                    <option value="Mizoram">Mizoram</option>
+                                    <option value="Nagaland">Nagaland</option>
+                                    <option value="Odisha">Odisha</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Sikkim">Sikkim</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Tripura">Tripura</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="Uttarakhand">Uttarakhand</option>
+                                    <option value="West Bengal">West Bengal</option>
+                                    <option value="Delhi">Delhi</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>City *</label>
+                                <input type="text" id="city" name="city" required placeholder="Enter your city">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Academic Background -->
+                    <div class="form-section">
+                        <div class="section-title">🎓 Academic Background</div>
+                        <div class="input-group">
+                            <label>Current Education Level *</label>
+                            <select id="current_education_level" name="current_education_level" required>
+                                <option value="">Select Level</option>
+                                <option value="12th Pass">12th Pass</option>
+                                <option value="Undergraduate (UG)">Undergraduate (UG)</option>
+                                <option value="Postgraduate (PG)">Postgraduate (PG)</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label>10th Percentage / CGPA</label>
+                                <input type="text" name="percentage_10th" placeholder="e.g. 85%">
+                            </div>
+                            <div class="input-group">
+                                <label>12th Percentage / CGPA</label>
+                                <input type="text" name="percentage_12th" placeholder="e.g. 90%">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Course & Admission Preferences -->
+                    <div class="form-section">
+                        <div class="section-title">📋 Course & Admission Preferences</div>
+                        <div class="input-group">
+                            <label>Interested Course</label>
+                            <select name="course_details" id="course_details">
+                                <option value="">Select Course</option>
+                                <option value="B.Tech / B.E">B.Tech / B.E</option>
+                                <option value="MBBS / BDS">MBBS / BDS</option>
+                                <option value="BBA / BCA">BBA / BCA</option>
+                                <option value="B.Sc / B.Com / B.A">B.Sc / B.Com / B.A</option>
+                                <option value="MBA / PGDM">MBA / PGDM</option>
+                                <option value="MCA / M.Com">MCA / M.Com</option>
+                                <option value="LLB / BA LLB">LLB / BA LLB</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label>Admission Preference</label>
+                                <input type="text" name="admission_preference" placeholder="Preferred college/branch">
+                            </div>
+                            <div class="input-group">
+                                <label>Assigned College (if any)</label>
+                                <input type="text" name="assigned_college" placeholder="Optional">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Budget & Accommodation -->
+                    <div class="form-section">
+                        <div class="section-title">💰 Budget & Accommodation</div>
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label>Estimated Education Budget</label>
+                                <input type="text" name="budget" placeholder="e.g. ₹5 Lakhs / Year">
+                            </div>
+                            <div class="input-group">
+                                <label>Hostel Requirement</label>
+                                <select name="hostel_preference">
+                                    <option value="">Select Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="Maybe">Maybe</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Document Upload & Verification -->
+                    <div class="form-section">
+                        <div class="section-title">📂 Document Upload & Verification</div>
+                        <div class="input-group">
+                            <label>ID Document / Supporting File (Image/PDF) *</label>
+                            <input type="file" id="id_document" name="id_document" accept="image/*,.pdf" required style="padding: 8px; background: #fff;">
+                            <div class="desc-text" style="margin-top: 4px;">Upload identity proof or certificate as required by admissions.</div>
+                        </div>
+                    </div>
+
+                    <!-- Communication Consent Mandatory Checkbox -->
+                    <div class="consent-box">
+                        <input type="checkbox" id="consent_checkbox" required>
+                        <label for="consent_checkbox">
+                            I agree to be contacted by CounselScope via WhatsApp or phone call regarding my career counseling and admission requirements. *
+                        </label>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="submit-btn">Submit Enquiry Now</button>
+                </form>
+            </div>
         </div>
 
         <div id="thankYouMessage">
-            <div class="logo-container">
-                <img src="logo.png" alt="CounselScope Logo" style="max-width: 130px;">
+            <div class="form-header" style="border-radius:12px; margin-bottom:20px;">
+                <img src="https://i.ibb.co/6R6t2Y0/unnamed.jpg" alt="Logo" style="max-width:100px;">
+                <h3>🎉 Thank You!</h3>
+                <p>Your enquiry and documents have been successfully submitted. Our expert counselor will contact you shortly.</p>
             </div>
-            <h3>🎉 Thank You!</h3>
-            <p>Your enquiry and documents have been successfully submitted. Our expert counselor will contact you shortly.</p>
         </div>
     </div>
 
@@ -119,7 +258,7 @@
             e.preventDefault();
             
             const btn = document.getElementById('submitBtn');
-            btn.innerText = "Submitting with Document...";
+            btn.innerText = "Submitting Data...";
             btn.disabled = true;
 
             const formData = new FormData();
@@ -131,6 +270,27 @@
             formData.append('current_education_level', document.getElementById('current_education_level').value);
             formData.append('state', document.getElementById('state').value);
             formData.append('city', document.getElementById('city').value);
+            
+            const p10 = document.querySelector('input[name="percentage_10th"]');
+            if (p10 && p10.value) formData.append('percentage_10th', p10.value);
+
+            const p12 = document.querySelector('input[name="percentage_12th"]');
+            if (p12 && p12.value) formData.append('percentage_12th', p12.value);
+
+            const course = document.querySelector('select[name="course_details"]');
+            if (course && course.value) formData.append('course_details', course.value);
+
+            const admPref = document.querySelector('input[name="admission_preference"]');
+            if (admPref && admPref.value) formData.append('admission_preference', admPref.value);
+
+            const assCol = document.querySelector('input[name="assigned_college"]');
+            if (assCol && assCol.value) formData.append('assigned_college', assCol.value);
+
+            const budget = document.querySelector('input[name="budget"]');
+            if (budget && budget.value) formData.append('budget', budget.value);
+
+            const hostel = document.querySelector('select[name="hostel_preference"]');
+            if (hostel && hostel.value) formData.append('hostel_preference', hostel.value);
             
             const fileField = document.getElementById('id_document');
             if (fileField.files.length > 0) {
@@ -148,14 +308,14 @@
                     document.getElementById('formContainer').style.display = 'none';
                     document.getElementById('thankYouMessage').style.display = 'block';
                 } else {
-                    alert('Error: ' + result.message);
-                    btn.innerText = "Submit Enquiry";
+                    alert('Error: ' + (result.message || 'Submission failed'));
+                    btn.innerText = "Submit Enquiry Now";
                     btn.disabled = false;
                 }
             } catch (error) {
-                console.error('Error:', error);
-                alert('Something went wrong. Please try again.');
-                btn.innerText = "Submit Enquiry";
+                console.error('Submission Error:', error);
+                alert('Network error or server down. Please try again.');
+                btn.innerText = "Submit Enquiry Now";
                 btn.disabled = false;
             }
         });
