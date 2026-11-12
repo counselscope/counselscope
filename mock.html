@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Assessment & Mock Test Portal</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-gradient: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text-dark);
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 720px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Header Section */
+        .header {
+            background: var(--primary);
+            color: #ffffff;
+            padding: 28px 32px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            display: flex;
+            background: #f1f5f9;
+            padding: 12px 32px;
+            justify-content: space-between;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+        }
+
+        .step-indicator.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .step-badge {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .step-indicator.active .step-badge {
+            background: var(--primary);
+        }
+
+        /* Form Content */
+        .form-body {
+            padding: 32px;
+        }
+
+        .step-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .step-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .grid-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        label span.req {
+            color: var(--danger);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background-color: #fff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+
+        /* Mock Test Question Cards */
+        .course-banner {
+            background: #eef2ff;
+            border-left: 4px solid var(--primary);
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .course-banner h3 {
+            font-size: 1.05rem;
+            color: var(--primary);
+        }
+
+        .question-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .question-title {
+            font-weight: 600;
+            font-size: 0.98rem;
+            margin-bottom: 14px;
+            color: var(--text-dark);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.92rem;
+        }
+
+        .option-item:hover {
+            border-color: var(--primary);
+            background: #f5f3ff;
+        }
+
+        .option-item input[type="radio"] {
+            accent-color: var(--primary);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 13px 26px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .btn-submit {
+            background: var(--success);
+            color: #ffffff;
+            flex: 1;
+        }
+
+        .btn-submit:hover {
+            background: #059669;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Status & Thank You Message */
+        .status-box {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .status-box.active {
+            display: block;
+        }
+
+        .status-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .error-msg {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: none;
+        }
+
+        /* Responsive Mobile Adjustments */
+        @media (max-width: 600px) {
+            .grid-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .form-body {
+                padding: 22px 18px;
+            }
+            .header {
+                padding: 22px 18px;
+            }
+            .header h1 {
+                font-size: 1.35rem;
+            }
+            .progress-container {
+                padding: 12px 18px;
+            }
+            .btn-group {
+                flex-direction: column-reverse;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <h1>National Mock Test & Career Portal</h1>
+        <p>Complete your profile and attempt your targeted course assessment</p>
+    </div>
+
+    <!-- Step Indicator -->
+    <div class="progress-container" id="progressBar">
+        <div class="step-indicator active" id="ind-step1">
+            <span class="step-badge">1</span>
+            <span>Student Details</span>
+        </div>
+        <div class="step-indicator" id="ind-step2">
+            <span class="step-badge">2</span>
+            <span>Course Assessment</span>
+        </div>
+    </div>
+
+    <!-- Main Form -->
+    <form id="myForm" class="form-body" novalidate>
+        
+        <!-- STEP 1: PERSONAL DETAILS & COURSE -->
+        <div class="step-section active" id="step1">
+            <div class="form-group">
+                <label for="fullName">Full Name <span class="req">*</span></label>
+                <input type="text" id="fullName" name="name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="grid-row">
+                <div class="form-group">
+                    <label for="email">Email ID <span class="req">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact">Contact Number <span class="req">*</span></label>
+                    <input type="tel" id="contact" name="contact" placeholder="10-digit mobile number" maxlength="10" required>
+                </div>
+            </div>
+
+            <div class="grid-row">
+                <div class="form-group">
+                    <label for="state">State <span class="req">*</span></label>
+                    <select id="state" name="state" required>
+                        <option value="">-- Select State --</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Delhi">Delhi (NCT)</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="West Bengal">West Bengal</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City <span class="req">*</span></label>
+                    <input type="text" id="city" name="city" placeholder="Enter your city" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="course">Select Course / Entrance Exam <span class="req">*</span></label>
+                <select id="course" name="course" required>
+                    <option value="">-- Click to Select Course --</option>
+                    <optgroup label="School & Foundation">
+                        <option value="11th">Class 11th (Science / Commerce / Arts)</option>
+                        <option value="12th">Class 12th (Board & Entrance Prep)</option>
+                    </optgroup>
+                    <optgroup label="Medical & Engineering">
+                        <option value="NEET">NEET (UG Medical)</option>
+                        <option value="JEE">JEE (Main & Advanced)</option>
+                        <option value="BITS">BITS (BITSAT Engineering)</option>
+                        <option value="PET">PET (Pre-Engineering Test / State CET)</option>
+                    </optgroup>
+                    <optgroup label="Management & Commerce">
+                        <option value="BBA">BBA / IPMAT</option>
+                        <option value="MBA">MBA / CAT / CMAT</option>
+                    </optgroup>
+                    <optgroup label="Other Competitive Courses">
+                        <option value="CUET">CUET (Central Universities)</option>
+                        <option value="CLAT">CLAT (Law Entrance)</option>
+                        <option value="NDA">NDA (Defence Services)</option>
+                        <option value="CA">CA Foundation</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <p class="error-msg" id="step1Error">Please fill in all required fields properly before proceeding.</p>
+
+            <button type="button" class="btn btn-primary" onclick="goToStep2()">
+                Next &rarr; Start Mock Assessment
+            </button>
+        </div>
+
+        <!-- STEP 2: DYNAMIC COURSE QUESTIONS -->
+        <div class="step-section" id="step2">
+            <div class="course-banner">
+                <div>
+                    <small style="color: var(--text-muted);">Selected Stream</small>
+                    <h3 id="selectedCourseTitle">Course Assessment</h3>
+                </div>
+                <span style="font-size: 0.8rem; background: #fff; padding: 4px 10px; border-radius: 20px; font-weight: 600; color: var(--primary);">Mock Test</span>
+            </div>
+
+            <!-- Dynamic Questions Will Load Here -->
+            <div id="dynamicQuestionsContainer"></div>
+
+            <p class="error-msg" id="step2Error">Please answer all questions before submitting.</p>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary" onclick="goToStep1()">&larr; Back</button>
+                <button type="submit" class="btn btn-submit" id="submitBtn">Submit Assessment</button>
+            </div>
+        </div>
+
+        <!-- SUCCESS / SUBMISSION SCREEN -->
+        <div class="status-box" id="statusBox">
+            <div class="status-icon">✅</div>
+            <h2 style="margin-bottom: 10px; color: var(--text-dark);">Assessment Submitted Successfully!</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;" id="statusMessage">
+                Thank you! Your details and mock test responses have been recorded.
+            </p>
+            <button type="button" class="btn btn-primary" style="max-width: 240px;" onclick="location.reload()">Take Another Test</button>
+        </div>
+
+    </form>
+</div>
+
+<script>
+    // ==========================================
+    // 1. RENDER BACKEND CONFIGURATION
+    // ==========================================
+    // Apna Render.com ka live URL yahan paste karein:
+    const RENDER_SUBMIT_URL = "https://your-app-name.onrender.com/submit";
+
+    // ==========================================
+    // 2. COURSE-WISE QUESTIONS DATABASE
+    // ==========================================
+    const courseQuestionsData = {
+        "NEET": [
+            {
+                id: "q1",
+                type: "text",
+                question: "1. Aap NEET kyun karna chahte hain aur aapka target Medical College kaunsa hai?",
+                placeholder: "Apna goal aur motivation likhein..."
+            },
+            {
+                id: "q2",
+                type: "radio",
+                question: "2. [Biology Mock] Which cell organelle is known as the 'Powerhouse of the Cell'?",
+                options: ["Ribosome", "Mitochondria", "Golgi Apparatus", "Lysosome"]
+            },
+            {
+                id: "q3",
+                type: "radio",
+                question: "3. [Chemistry Mock] What is the pH value of pure human blood?",
+                options: ["6.4", "7.0", "7.4", "8.2"]
+            },
+            {
+                id: "q4",
+                type: "radio",
+                question: "4. Aapki current NEET preparation stage kya hai?",
+                options: ["Just Starting (Class 11th)", "12th Appearing", "Dropper / Repeater", "Revision & Test Series Only"]
+            }
+        ],
+        "JEE": [
+            {
+                id: "q1",
+                type: "text",
+                question: "1. Aap JEE (IIT/NIT) kyun crack karna chahte hain aur aapki favourite branch kya hai?",
+                placeholder: "e.g., Computer Science at IIT Bombay..."
+            },
+            {
+                id: "q2",
+                type: "radio",
+                question: "2. [Physics Mock] What is the dimensional formula of Planck's Constant (h)?",
+                options: ["[ML²T⁻¹]", "[MLT⁻²]", "[ML²T⁻²]", "[M⁰L⁰T⁰]"]
+            },
+            {
+                id: "q3",
+                type: "radio",
+                question: "3. [Maths Mock] If f(x) = sin(x) + cos(x), what is the maximum value of f(x)?",
+                options: ["1", "2", "√2", "1/√2"]
+            },
+            {
+                id: "q4",
+                type: "radio",
+                question: "4. Aapka primary target exam kaunsa hai?",
+                options: ["JEE Main Only", "Both JEE Main & JEE Advanced", "State Engineering Entrance", "Not Decided Yet"]
+            }
+        ],
+        "BITS": [
+            {
+                id: "q1",
+                type: "text",
+                question: "1. BITS Pilani / Goa / Hyderabad join karne ke peeche aapka main reason kya hai?",
+                placeholder: "Apna answer yahan likhein..."
+            },
+            {
+                id: "q2",
+                type: "radio",
+                question: "2. [Logical Reasoning Mock] Find the next number in the series: 2, 6, 12, 20, 30, ?",
+                options: ["38", "40", "42", "44"]
+            },
+            {
+                id: "q3",
+                type: "radio",
+                question: "3. [English Proficiency Mock] Choose the synonym of 'EPHEMERAL':",
+                options: ["Eternal", "Short-lived", "Heavy", "Transparent"]
+            }
+        ],
+        "PET": [
+            {
+                id: "q1",
+                type: "text",
+                question: "1. Aap PET (Pre-Engineering Test) ke through kaunsa college ya branch target kar rahe hain?",
+                placeholder: "Apna target likhein..."
+            },
+            {
+                id: "q2",
+                type: "radio",
+                question: "2. [Physics Mock] SI unit of Electric Flux is:",
+                options: ["N·m²/C", "N/C", "V/m", "J/C"]
+            },
+            {
+                id: "q3",
+                type: "radio",
+                question: "3. [Maths Mock] The derivative of log(sin x) with respect to x is:",
+                options: ["tan x", "cot x", "sec x", "cosec x"]
+            }
+        ],
+        "11th": [
+            {
+                id: "q1",
+                type: "text",
+                question: "1. Class 11th mein aapne kaunsi stream choose ki hai aur kyun?",
+                placeholder: "PCM, PCB, Commerce, ya Arts..."
+            },
+            {
+                id: "q2",
+                type: "radio",
+                question: "2. Kya aap school ke saath kisi competitive exam ki taiyari bhi kar rahe hain?",
+                options: ["Yes, JEE / NEET", "Yes, CA / CUET / NDA", "Only School Boards Focus", "Planning to start soon"]
+            }
+        ],
+        "12th": [
+            {
+                id: "q1",
+                type: "text",
+                question: "1. Class 12th Boards mein aapka target percentage kya hai aur 12th ke baad kya plan hai?",
+                placeholder: "Apna plan likhein..."
+            },
+            {
+                id: "q2",
+                type: "radio",
+                question: "2. Aapko sabse zyada help kis subject mein chahiye?",
+                options: ["Physics / Maths", "Chemistry / Biology", "Accounts / Economics", "All Subjects Mock Practice"]
+            }
+        ],
+        "BBA": [
+            {
+                id: "q1",
+                type: "text",
+                question: "1. Aap BBA kyun karna chahte hain? Kya aapka future plan MBA ya Entrepreneurship hai?",
+                placeholder: "Apne career thoughts likhein..."
+            },
+            {
+                id: "q2",
+                type: "radio",
+                question: "2. [Aptitude Mock] If a product is sold at ₹1200 with a 20% profit, what was its Cost Price?",
+                options: ["₹960", "₹1000", "₹1050", "₹1100"]
+            }
+        ],
+        "MBA": [
+            {
+                id: "q1",
+                type: "text",
+                question: "1. Aap MBA kyun karna chahte hain aur aapki preferred specialization (Finance, Marketing, HR, IT) kya hai?",
+                placeholder: "Apna answer yahan likhein..."
+            },
+            {
+                id: "q2",
+                type: "radio",
+                question: "2. [Quant Mock] A train 150m long passes a pole in 15 seconds. What is its speed in km/hr?",
+                options: ["30 km/hr", "36 km/hr", "45 km/hr", "54 km/hr"]
+            },
+            {
+                id: "q3",
+                type: "radio",
+                question: "3. Aap kaunse MBA entrance exams target kar rahe hain?",
+                options: ["CAT / XAT", "CMAT / MAT / CET", "GMAT / NMAT", "Direct Admission / Counseling"]
+            }
+        ]
+    };
+
+    // Fallback questions agar user CUET, CLAT, NDA, CA select kare
+    const defaultCourseQuestions = [
+        {
+            id: "q1",
+            type: "text",
+            question: "1. Aap yeh course kyun join karna chahte hain aur aapka main career objective kya hai?",
+            placeholder: "Apne career goals ke baare mein likhein..."
+        },
+        {
+            id: "q2",
+            type: "radio",
+            question: "2. [General Aptitude] Which number should replace the question mark: 5, 11, 23, 47, ?",
+            options: ["91", "95", "99", "85"]
+        },
+        {
+            id: "q3",
+            type: "radio",
+            question: "3. Aap kab se apni preparation / classes start karna chahte hain?",
+            options: ["Immediately", "Within 15 Days", "Next Month", "Just Exploring Options"]
+        }
+    ];
+
+    // ==========================================
+    // 3. NAVIGATION & DYNAMIC RENDERING LOGIC
+    // ==========================================
+    function goToStep2() {
+        const name = document.getElementById("fullName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const contact = document.getElementById("contact").value.trim();
+        const state = document.getElementById("state").value;
+        const city = document.getElementById("city").value.trim();
+        const course = document.getElementById("course").value;
+        const errorEl = document.getElementById("step1Error");
+
+        // Basic Validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^[0-9]{10}$/;
+
+        if (!name || !emailRegex.test(email) || !phoneRegex.test(contact) || !state || !city || !course) {
+            errorEl.style.display = "block";
+            errorEl.textContent = "Please enter valid Name, Email, 10-digit Contact, State, City, and select a Course.";
+            return;
+        }
+
+        errorEl.style.display = "none";
+
+        // Render Course Title & Questions
+        document.getElementById("selectedCourseTitle").textContent = course + " - Mock & Career Assessment";
+        renderQuestions(course);
+
+        // Switch Views
+        document.getElementById("step1").classList.remove("active");
+        document.getElementById("step2").classList.add("active");
+        document.getElementById("ind-step2").classList.add("active");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToStep1() {
+        document.getElementById("step2").classList.remove("active");
+        document.getElementById("step1").classList.add("active");
+        document.getElementById("ind-step2").classList.remove("active");
+    }
+
+    function renderQuestions(course) {
+        const container = document.getElementById("dynamicQuestionsContainer");
+        container.innerHTML = "";
+
+        const questions = courseQuestionsData[course] || defaultCourseQuestions;
+
+        questions.forEach((item) => {
+            const card = document.createElement("div");
+            card.className = "question-card";
+
+            const title = document.createElement("div");
+            title.className = "question-title";
+            title.textContent = item.question;
+            card.appendChild(title);
+
+            if (item.type === "text") {
+                const textarea = document.createElement("textarea");
+                textarea.rows = 3;
+                textarea.name = item.id;
+                textarea.dataset.question = item.question;
+                textarea.placeholder = item.placeholder || "Write your answer here...";
+                textarea.required = true;
+                card.appendChild(textarea);
+            } else if (item.type === "radio") {
+                const optionsDiv = document.createElement("div");
+                optionsDiv.className = "options-list";
+
+                item.options.forEach((opt) => {
+                    const label = document.createElement("label");
+                    label.className = "option-item";
+
+                    const radio = document.createElement("input");
+                    radio.type = "radio";
+                    radio.name = item.id;
+                    radio.value = opt;
+                    radio.dataset.question = item.question;
+                    radio.required = true;
+
+                    const span = document.createElement("span");
+                    span.textContent = opt;
+
+                    label.appendChild(radio);
+                    label.appendChild(span);
+                    optionsDiv.appendChild(label);
+                });
+
+                card.appendChild(optionsDiv);
+            }
+
+            container.appendChild(card);
+        });
+    }
+
+    // ==========================================
+    // 4. FORM SUBMISSION TO RENDER BACKEND (app.py)
+    // ==========================================
+    document.getElementById("myForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const step2Error = document.getElementById("step2Error");
+        const submitBtn = document.getElementById("submitBtn");
+
+        // Validate Step 2 Questions
+        const container = document.getElementById("dynamicQuestionsContainer");
+        const textareas = container.querySelectorAll("textarea");
+        const questionCards = container.querySelectorAll(".question-card");
+        let allAnswered = true;
+
+        textareas.forEach(ta => {
+            if (!ta.value.trim()) allAnswered = false;
+        });
+
+        questionCards.forEach(card => {
+            const radios = card.querySelectorAll("input[type='radio']");
+            if (radios.length > 0) {
+                const checked = Array.from(radios).some(r => r.checked);
+                if (!checked) allAnswered = false;
+            }
+        });
+
+        if (!allAnswered) {
+            step2Error.style.display = "block";
+            return;
+        }
+        step2Error.style.display = "none";
+
+        // Collect Responses cleanly for CRM / Flask app.py
+        const responses = [];
+        questionCards.forEach(card => {
+            const qText = card.querySelector(".question-title").textContent;
+            const ta = card.querySelector("textarea");
+            const checkedRadio = card.querySelector("input[type='radio']:checked");
+
+            responses.push({
+                question: qText,
+                answer: ta ? ta.value.trim() : (checkedRadio ? checkedRadio.value : "")
+            });
+        });
+
+        // Final JSON Payload
+        const payload = {
+            name: document.getElementById("fullName").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            contact: document.getElementById("contact").value.trim(),
+            state: document.getElementById("state").value,
+            city: document.getElementById("city").value.trim(),
+            selected_course: document.getElementById("course").value,
+            assessment_responses: responses,
+            submitted_at: new Date().toISOString()
+        };
+
+        // Call Render Backend Function
+        await sendDataToRender(payload, submitBtn);
+    });
+
+    async function sendDataToRender(formData, submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting to Server...";
+
+        try {
+            const response = await fetch(RENDER_SUBMIT_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                throw new Error("Server responded with status: " + response.status);
+            }
+
+            const result = await response.json();
+            console.log("CRM / Render Response:", result);
+            showSuccessScreen();
+
+        } catch (error) {
+            console.error("Submission Error:", error);
+            // Agar abhi aap local file test kar rahe hain aur Render URL dummy hai, toh user ko alert dikhayega:
+            alert("Could not connect to Render URL (" + RENDER_SUBMIT_URL + "). Please check your Flask app.py CORS settings or live URL.\n\nPayload ready in Console (F12).");
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit Assessment";
+        }
+    }
+
+    function showSuccessScreen() {
+        document.getElementById("step2").classList.remove("active");
+        document.getElementById("progressBar").style.display = "none";
+        document.getElementById("statusBox").classList.add("active");
+    }
+</script>
+
+</body>
+</html>
