@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Assessment & Mock Test Portal</title>
+    <title>Council Scope Mock Test & Assessment Portal</title>
     <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -39,7 +39,7 @@
         .container {
             background: var(--card-bg);
             width: 100%;
-            max-width: 720px;
+            max-width: 780px;
             border-radius: 16px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
             overflow: hidden;
@@ -107,6 +107,8 @@
         /* Form Content */
         .form-body {
             padding: 32px;
+            max-height: 75vh;
+            overflow-y: auto;
         }
 
         .step-section {
@@ -340,8 +342,8 @@
 <div class="container">
     <!-- Header -->
     <div class="header">
-        <h1>National Mock Test & Career Portal</h1>
-        <p>Complete your profile and attempt your targeted course assessment</p>
+        <h1>Council Scope Mock Test</h1>
+        <p>Complete your profile and attempt your comprehensive course assessment</p>
     </div>
 
     <!-- Step Indicator -->
@@ -352,7 +354,7 @@
         </div>
         <div class="step-indicator" id="ind-step2">
             <span class="step-badge">2</span>
-            <span>Course Assessment</span>
+            <span>Mock Assessment</span>
         </div>
     </div>
 
@@ -422,7 +424,7 @@
             </div>
 
             <div class="form-group">
-                <label for="course">Select Course / Entrance Exam <span class="req">*</span></label>
+                <label for="course">Select Target Course / Entrance Exam <span class="req">*</span></label>
                 <select id="course" name="course" required>
                     <option value="">-- Click to Select Course --</option>
                     <optgroup label="School & Foundation">
@@ -462,7 +464,7 @@
                     <small style="color: var(--text-muted);">Selected Stream</small>
                     <h3 id="selectedCourseTitle">Course Assessment</h3>
                 </div>
-                <span style="font-size: 0.8rem; background: #fff; padding: 4px 10px; border-radius: 20px; font-weight: 600; color: var(--primary);">Mock Test</span>
+                <span style="font-size: 0.8rem; background: #fff; padding: 4px 10px; border-radius: 20px; font-weight: 600; color: var(--primary);">Council Scope Mock</span>
             </div>
 
             <!-- Dynamic Questions Will Load Here -->
@@ -481,7 +483,7 @@
             <div class="status-icon">✅</div>
             <h2 style="margin-bottom: 10px; color: var(--text-dark);">Assessment Submitted Successfully!</h2>
             <p style="color: var(--text-muted); margin-bottom: 20px;" id="statusMessage">
-                Thank you! Your details and mock test responses have been recorded.
+                Thank you! Your details and mock test responses have been successfully recorded in the CRM.
             </p>
             <button type="button" class="btn btn-primary" style="max-width: 240px;" onclick="location.reload()">Take Another Test</button>
         </div>
@@ -493,189 +495,212 @@
     // ==========================================
     // 1. RENDER BACKEND CONFIGURATION
     // ==========================================
-    // Apna Render.com ka live URL yahan paste karein:
     const RENDER_SUBMIT_URL = "https://counselscope-mock.onrender.com/submit";
 
     // ==========================================
-    // 2. COURSE-WISE QUESTIONS DATABASE
+    // 2. COMPREHENSIVE COURSE-WISE QUESTIONS DATABASE (20-25 Questions Each)
     // ==========================================
     const courseQuestionsData = {
         "NEET": [
-            {
-                id: "q1",
-                type: "text",
-                question: "1. Aap NEET kyun karna chahte hain aur aapka target Medical College kaunsa hai?",
-                placeholder: "Apna goal aur motivation likhein..."
-            },
-            {
-                id: "q2",
-                type: "radio",
-                question: "2. [Biology Mock] Which cell organelle is known as the 'Powerhouse of the Cell'?",
-                options: ["Ribosome", "Mitochondria", "Golgi Apparatus", "Lysosome"]
-            },
-            {
-                id: "q3",
-                type: "radio",
-                question: "3. [Chemistry Mock] What is the pH value of pure human blood?",
-                options: ["6.4", "7.0", "7.4", "8.2"]
-            },
-            {
-                id: "q4",
-                type: "radio",
-                question: "4. Aapki current NEET preparation stage kya hai?",
-                options: ["Just Starting (Class 11th)", "12th Appearing", "Dropper / Repeater", "Revision & Test Series Only"]
-            }
+            { id: "q1", type: "text", question: "1. Why do you want to pursue NEET and what is your dream medical institution?", placeholder: "Write your motivation and goal..." },
+            { id: "q2", type: "text", question: "2. What was your score or percentage in your previous academic classes / board exams?", placeholder: "Mention percentage or GPA..." },
+            { id: "q3", type: "radio", question: "3. [Biology] Which cell organelle is known as the 'Powerhouse of the Cell'?", options: ["Ribosome", "Mitochondria", "Golgi Apparatus", "Lysosome"] },
+            { id: "q4", type: "radio", question: "4. [Biology] The double helix structure of DNA was proposed by:", options: ["Watson and Crick", "Darwin and Wallace", "Mendel and De Vries", "Beadle and Tatum"] },
+            { id: "q5", type: "radio", question: "5. [Biology] Which hormone is primarily responsible for fight or flight response?", options: ["Insulin", "Adrenaline", "Thyroxine", "Estrogen"] },
+            { id: "q6", type: "radio", question: "6. [Biology] Normal blood pressure in a healthy human adult is:", options: ["120/80 mm Hg", "140/90 mm Hg", "100/60 mm Hg", "130/85 mm Hg"] },
+            { id: "q7", type: "radio", question: "7. [Biology] Which vitamin is water-soluble?", options: ["Vitamin A", "Vitamin D", "Vitamin C", "Vitamin K"] },
+            { id: "q8", type: "radio", question: "8. [Chemistry] What is the pH value of pure human blood?", options: ["6.4", "7.0", "7.4", "8.2"] },
+            { id: "q9", type: "radio", question: "9. [Chemistry] Which element is present in all organic compounds?", options: ["Nitrogen", "Carbon", "Oxygen", "Hydrogen"] },
+            { id: "q10", type: "radio", question: "10. [Chemistry] The chemical formula of heavy water is:", options: ["H2O", "D2O", "T2O", "H2O2"] },
+            { id: "q11", type: "radio", question: "11. [Chemistry] Avogadro's number is equal to:", options: ["6.022 × 10^23", "3.14 × 10^10", "1.6 × 10^-19", "9.8 × 10^8"] },
+            { id: "q12", type: "radio", question: "12. [Physics] The SI unit of luminous intensity is:", options: ["Tesla", "Candela", "Weber", "Henry"] },
+            { id: "q13", type: "radio", question: "13. [Physics] Acceleration due to gravity (g) on the surface of the Earth is approximately:", options: ["8.9 m/s²", "9.8 m/s²", "11.2 m/s²", "6.67 m/s²"] },
+            { id: "q14", type: "radio", question: "14. [Physics] Ohm's law relates current, voltage, and:", options: ["Resistance", "Capacitance", "Inductance", "Frequency"] },
+            { id: "q15", type: "radio", question: "15. [Physics] Light year is a unit of:", options: ["Time", "Distance", "Speed", "Energy"] },
+            { id: "q16", type: "radio", question: "16. What is your current preparation level for NEET?", options: ["Beginner / Class 11", "Intermediate / Class 12", "Dropper / Repeater", "Revision Stage"] },
+            { id: "q17", type: "radio", question: "17. How many hours do you dedicate to self-study daily?", options: ["Less than 4 hours", "4 - 7 hours", "8 - 10 hours", "More than 10 hours"] },
+            { id: "q18", type: "radio", question: "18. Which subject requires the most improvement for you?", options: ["Physics", "Chemistry", "Botany", "Zoology"] },
+            { id: "q19", type: "radio", question: "19. Have you attempted any full-length mock tests before?", options: ["Yes, regularly", "Occasionally", "No, this is my first time", "Planning to start"] },
+            { id: "q20", type: "radio", question: "20. What is your primary mode of learning?", options: ["Online Coaching", "Offline Coaching", "Self-Study", "Hybrid / School"] }
         ],
         "JEE": [
-            {
-                id: "q1",
-                type: "text",
-                question: "1. Aap JEE (IIT/NIT) kyun crack karna chahte hain aur aapki favourite branch kya hai?",
-                placeholder: "e.g., Computer Science at IIT Bombay..."
-            },
-            {
-                id: "q2",
-                type: "radio",
-                question: "2. [Physics Mock] What is the dimensional formula of Planck's Constant (h)?",
-                options: ["[ML²T⁻¹]", "[MLT⁻²]", "[ML²T⁻²]", "[M⁰L⁰T⁰]"]
-            },
-            {
-                id: "q3",
-                type: "radio",
-                question: "3. [Maths Mock] If f(x) = sin(x) + cos(x), what is the maximum value of f(x)?",
-                options: ["1", "2", "√2", "1/√2"]
-            },
-            {
-                id: "q4",
-                type: "radio",
-                question: "4. Aapka primary target exam kaunsa hai?",
-                options: ["JEE Main Only", "Both JEE Main & JEE Advanced", "State Engineering Entrance", "Not Decided Yet"]
-            }
+            { id: "q1", type: "text", question: "1. Why do you want to crack JEE and which branch / IIT do you aspire to join?", placeholder: "Write your engineering goals..." },
+            { id: "q2", type: "text", question: "2. What was your score or percentage in your previous academic evaluations?", placeholder: "Mention scores..." },
+            { id: "q3", type: "radio", question: "3. [Physics] What is the dimensional formula of Planck's Constant (h)?", options: ["[ML²T⁻¹]", "[MLT⁻²]", "[ML²T⁻²]", "[M⁰L⁰T⁰]"] },
+            { id: "q4", type: "radio", question: "4. [Physics] The escape velocity from the Earth's surface is approximately:", options: ["9.8 km/s", "11.2 km/s", "7.9 km/s", "3.0 × 10^8 m/s"] },
+            { id: "q5", type: "radio", question: "5. [Physics] Torque is the rotational equivalent of:", options: ["Force", "Velocity", "Momentum", "Work"] },
+            { id: "q6", type: "radio", question: "6. [Physics] Young's modulus is expressed in units of:", options: ["N/m", "N/m²", "N·m", "Dimensionless"] },
+            { id: "q7", type: "radio", question: "7. [Maths] If f(x) = sin(x) + cos(x), what is the maximum value of f(x)?", options: ["1", "2", "√2", "1/√2"] },
+            { id: "q8", type: "radio", question: "8. [Maths] The derivative of e^(2x) with respect to x is:", options: ["e^(2x)", "2e^(2x)", "x*e^(2x)", "2x*e^(x-1)"] },
+            { id: "q9", type: "radio", question: "9. [Maths] The value of integral ∫ (1/x) dx is:", options: ["ln|x| + C", "-1/x² + C", "e^x + C", "x² / 2 + C"] },
+            { id: "q10", type: "radio", question: "10. [Maths] The sum of probabilities of all mutually exclusive events is:", options: ["0", "0.5", "1", "Infinite"] },
+            { id: "q11", type: "radio", question: "11. [Chemistry] The hybridization of carbon in methane (CH4) is:", options: ["sp", "sp²", "sp³", "sp³d"] },
+            { id: "q12", type: "radio", question: "12. [Chemistry] Which gas is evolved when dilute HCl reacts with zinc granules?", options: ["Oxygen", "Hydrogen", "Carbon Dioxide", "Nitrogen"] },
+            { id: "q13", type: "radio", question: "13. [Chemistry] Faraday's laws are related to:", options: ["Electrochemistry", "Thermodynamics", "Chemical Kinetics", "Radioactivity"] },
+            { id: "q14", type: "radio", question: "14. [Chemistry] The monomer of natural rubber is:", options: ["Isoprene", "Neoprene", "Ethylene", "Styrene"] },
+            { id: "q15", type: "radio", question: "15. What is your target exam category?", options: ["JEE Main Only", "JEE Main & Advanced", "State CET / Engineering", "Undecided"] },
+            { id: "q16", type: "radio", question: "16. How many hours do you practice problem-solving daily?", options: ["1-3 hours", "4-6 hours", "7-9 hours", "10+ hours"] },
+            { id: "q17", type: "radio", question: "17. Which section is your strongest area?", options: ["Physics", "Chemistry", "Mathematics", "Balanced in all"] },
+            { id: "q18", type: "radio", question: "18. What is your current preparation stage?", options: ["Class 11 Foundation", "Class 12 Board + JEE", "Dropper Batch", "Revision & Mock Stage"] },
+            { id: "q19", type: "radio", question: "19. Do you analyze your previous test mistakes systematically?", options: ["Always", "Sometimes", "Rarely", "Never"] },
+            { id: "q20", type: "radio", question: "20. What motivates you most towards engineering?", options: ["Innovation & Tech", "Core Research", "Career Stability", "Parental Guidance"] }
         ],
         "BITS": [
-            {
-                id: "q1",
-                type: "text",
-                question: "1. BITS Pilani / Goa / Hyderabad join karne ke peeche aapka main reason kya hai?",
-                placeholder: "Apna answer yahan likhein..."
-            },
-            {
-                id: "q2",
-                type: "radio",
-                question: "2. [Logical Reasoning Mock] Find the next number in the series: 2, 6, 12, 20, 30, ?",
-                options: ["38", "40", "42", "44"]
-            },
-            {
-                id: "q3",
-                type: "radio",
-                question: "3. [English Proficiency Mock] Choose the synonym of 'EPHEMERAL':",
-                options: ["Eternal", "Short-lived", "Heavy", "Transparent"]
-            }
+            { id: "q1", type: "text", question: "1. Why do you prefer BITS (Pilani, Goa, Hyderabad) over traditional IITs?", placeholder: "Write your reasons..." },
+            { id: "q2", type: "text", question: "2. What is your academic background and previous exam performance?", placeholder: "Mention grades..." },
+            { id: "q3", type: "radio", question: "3. [Logical Reasoning] Find the next number in the series: 2, 6, 12, 20, 30, ?", options: ["38", "40", "42", "44"] },
+            { id: "q4", type: "radio", question: "4. [Logical Reasoning] If 'CAT' is coded as '31220', how is 'DOG' coded?", options: ["4157", "3146", "5123", "4102"] },
+            { id: "q5", type: "radio", question: "5. [English] Choose the synonym of 'EPHEMERAL':", options: ["Eternal", "Short-lived", "Heavy", "Transparent"] },
+            { id: "q6", type: "radio", question: "6. [English] Identify the correctly spelled word:", options: ["Accomodate", "Acommodate", "Accommodate", "Acomodate"] },
+            { id: "q7", type: "radio", question: "7. [Physics] The dimensional formula of surface tension is:", options: ["[MT⁻²]", "[MLT⁻²]", "[ML²T⁻²]", "[M⁰L⁻¹T]"] },
+            { id: "q8", type: "radio", question: "8. [Physics] Refractive index of glass with respect to water depends on:", options: ["Wavelength of light", "Intensity of light", "Angle of incidence", "Volume of glass"] },
+            { id: "q9", type: "radio", question: "9. [Maths] The number of ways to arrange letters of the word 'BITS' is:", options: ["12", "24", "6", "48"] },
+            { id: "q10", type: "radio", question: "10. [Maths] The determinant of an identity matrix of order 3 is:", options: ["0", "1", "3", "Not defined"] },
+            { id: "q11", type: "radio", question: "11. [Chemistry] Permanent hardness of water can be removed by adding:", options: ["Sodium carbonate", "Sodium chloride", "Calcium sulfate", "Hydrochloric acid"] },
+            { id: "q12", type: "radio", question: "12. [Chemistry] The most electronegative element among the following is:", options: ["Sodium", "Fluorine", "Chlorine", "Carbon"] },
+            { id: "q13", type: "radio", question: "13. Are you familiar with the computer-based online BITSAT pattern?", options: ["Yes, very familiar", "Somewhat familiar", "No, new to me", "Planning to learn"] },
+            { id: "q14", type: "radio", question: "14. How strong is your speed and time management in exams?", options: ["Excellent", "Average", "Needs improvement", "Poor"] },
+            { id: "q15", type: "radio", question: "15. What is your preferred campus choice?", options: ["Pilani", "Goa", "Hyderabad", "Any of them"] },
+            { id: "q16", type: "radio", question: "16. Daily study duration for BITSAT preparation:", options: ["4-6 hours", "6-8 hours", "8-10 hours", "10+ hours"] },
+            { id: "q17", type: "radio", question: "17. Do you practice English Proficiency questions regularly?", options: ["Yes", "No", "Sometimes", "Not required"] },
+            { id: "q18", type: "radio", question: "18. How comfortable are you with speedy MCQ solving?", options: ["Very comfortable", "Moderate", "Slow", "Struggle with time"] },
+            { id: "q19", type: "radio", question: "19. Have you given any BITSAT mock test yet?", options: ["Yes", "No", "Planning next week", "Don't know"] },
+            { id: "q20", type: "radio", question: "20. What is your primary career aspiration after graduation?", options: ["Core Engineering", "Tech / Software", "Higher Studies (MS/PhD)", "Entrepreneurship"] }
         ],
         "PET": [
-            {
-                id: "q1",
-                type: "text",
-                question: "1. Aap PET (Pre-Engineering Test) ke through kaunsa college ya branch target kar rahe hain?",
-                placeholder: "Apna target likhein..."
-            },
-            {
-                id: "q2",
-                type: "radio",
-                question: "2. [Physics Mock] SI unit of Electric Flux is:",
-                options: ["N·m²/C", "N/C", "V/m", "J/C"]
-            },
-            {
-                id: "q3",
-                type: "radio",
-                question: "3. [Maths Mock] The derivative of log(sin x) with respect to x is:",
-                options: ["tan x", "cot x", "sec x", "cosec x"]
-            }
+            { id: "q1", type: "text", question: "1. Which state engineering college or branch are you targeting through PET?", placeholder: "Write target branch/college..." },
+            { id: "q2", type: "text", question: "2. What is your past academic score?", placeholder: "Mention score..." },
+            { id: "q3", type: "radio", question: "3. [Physics] SI unit of Electric Flux is:", options: ["N·m²/C", "N/C", "V/m", "J/C"] },
+            { id: "q4", type: "radio", question: "4. [Physics] The frequency of alternating current in India is:", options: ["50 Hz", "60 Hz", "100 Hz", "25 Hz"] },
+            { id: "q5", type: "radio", question: "5. [Physics] Work done in moving a charge over an equipotential surface is:", options: ["Positive", "Negative", "Zero", "Infinite"] },
+            { id: "q6", type: "radio", question: "6. [Maths] The derivative of log(sin x) with respect to x is:", options: ["tan x", "cot x", "sec x", "cosec x"] },
+            { id: "q7", type: "radio", question: "7. [Maths] Equation of a circle with center at origin and radius r is:", options: ["x² + y² = r²", "x + y = r", "y = mx + c", "x²/a² + y²/b² = 1"] },
+            { id: "q8", type: "radio", question: "8. [Chemistry] Common salt is chemically known as:", options: ["Sodium Carbonate", "Sodium Chloride", "Calcium Chloride", "Magnesium Sulfate"] },
+            { id: "q9", type: "radio", question: "9. [Chemistry] The gas used in refrigerators and air conditioners is often:", options: ["Freon / CFC", "Methane", "Nitrogen", "Argon"] },
+            { id: "q10", type: "radio", question: "10. What is your preparation level for state engineering tests?", options: ["Beginner", "Intermediate", "Advanced", "Revision Mode"] },
+            { id: "q11", type: "radio", question: "11. Daily study hours dedicated:", options: ["2-4 hours", "5-7 hours", "8+ hours", "Variable"] },
+            { id: "q12", type: "radio", question: "12. Which subject is most scoring for you?", options: ["Physics", "Chemistry", "Mathematics", "All equal"] },
+            { id: "q13", type: "radio", question: "13. Have you solved past year state PET papers?", options: ["Yes", "No", "Planning to", "Not available"] },
+            { id: "q14", type: "radio", question: "14. Coaching status:", options: ["Self-study", "Local coaching", "Online modules", "School only"] },
+            { id: "q15", type: "radio", question: "15. Confidence level for exam:", options: ["High", "Moderate", "Low", "Unsure"] },
+            { id: "q16", type: "radio", question: "16. Mock test frequency:", options: ["Weekly", "Monthly", "Rarely", "Never"] },
+            { id: "q17", type: "radio", question: "17. Preferred engineering branch:", options: ["Computer Science", "Mechanical", "Civil", "Electrical"] },
+            { id: "q18", type: "radio", question: "18. Do you face difficulty in numerical problems?", options: ["Yes", "No", "Sometimes", "Rarely"] },
+            { id: "q19", type: "radio", question: "19. Revision strategy:", options: ["Short notes", "Full textbook", "Video recaps", "Direct tests"] },
+            { id: "q20", type: "radio", question: "20. Ready to take regular mock sessions?", options: ["Yes", "Maybe", "No", "Already taking"] }
         ],
         "11th": [
-            {
-                id: "q1",
-                type: "text",
-                question: "1. Class 11th mein aapne kaunsi stream choose ki hai aur kyun?",
-                placeholder: "PCM, PCB, Commerce, ya Arts..."
-            },
-            {
-                id: "q2",
-                type: "radio",
-                question: "2. Kya aap school ke saath kisi competitive exam ki taiyari bhi kar rahe hain?",
-                options: ["Yes, JEE / NEET", "Yes, CA / CUET / NDA", "Only School Boards Focus", "Planning to start soon"]
-            }
+            { id: "q1", type: "text", question: "1. Which stream have you chosen in Class 11th and what are your reasons?", placeholder: "Science, Commerce or Arts..." },
+            { id: "q2", type: "text", question: "2. What were your Class 10th board grades or marks?", placeholder: "Mention marks..." },
+            { id: "q3", type: "radio", question: "3. Are you preparing for any competitive exam alongside Class 11?", options: ["Yes, JEE / NEET", "Yes, CA / CUET", "Only School Boards", "Exploring options"] },
+            { id: "q4", type: "radio", question: "4. How is your transition from Class 10 to Class 11 syllabus?", options: ["Smooth", "Challenging / Hard", "Manageable", "Very difficult"] },
+            { id: "q5", type: "radio", question: "5. Daily study hours outside school:", options: ["1-2 hours", "3-5 hours", "6+ hours", "Irregular"] },
+            { id: "q6", type: "radio", question: "6. Which subject do you find most complex in Class 11?", options: ["Physics / Accounts", "Chemistry / Economics", "Mathematics", "Theory subjects"] },
+            { id: "q7", type: "radio", question: "7. Do you make your own handwritten notes?", options: ["Always", "Sometimes", "Never", "Depends on subject"] },
+            { id: "q8", type: "radio", question: "8. Do you take school periodic tests seriously?", options: ["Yes, very much", "Casually", "Only before exams", "Not really"] },
+            { id: "q9", type: "radio", question: "9. Goal after Class 12:", options: ["Professional Degree", "Engineering / Medical", "Civil Services", "Not decided"] },
+            { id: "q10", type: "radio", question: "10. Preferred method of clearing doubts:", options: ["Teachers", "Peer discussion", "Online search", "Self-practice"] },
+            { id: "q11", type: "radio", question: "11. Are you attending any coaching classes?", options: ["Yes", "No", "Planning soon", "Online only"] },
+            { id: "q12", type: "radio", question: "12. How organized is your study desk?", options: ["Very neat", "Average", "Messy", "No fixed desk"] },
+            { id: "q13", type: "radio", question: "13. Do you revise weekly topics?", options: ["Regularly", "Occasionally", "Never", "Only during exams"] },
+            { id: "q14", type: "radio", question: "14. Comfort with online learning tools:", options: ["High", "Moderate", "Low", "Prefer offline"] },
+            { id: "q15", type: "radio", question: "15. Stress level regarding studies:", options: ["Low", "Moderate", "High", "Very high"] },
+            { id: "q16", type: "radio", question: "16. Extracurricular involvement:", options: ["Active", "Occasional", "None", "Focused only on study"] },
+            { id: "q17", type: "radio", question: "17. Support from family for academics:", options: ["Strong support", "Moderate", "Independent", "Minimal"] },
+            { id: "q18", type: "radio", question: "18. Do you track your test performance?", options: ["Yes", "No", "Sometimes", "Not applicable"] },
+            { id: "q19", type: "radio", question: "19. Attitude towards difficult questions:", options: ["Solve them", "Ask teacher", "Skip them", "Get frustrated"] },
+            { id: "q20", type: "radio", question: "20. Ready to follow structured mock assessment modules?", options: ["Yes", "Maybe", "No", "Let's see"] }
         ],
         "12th": [
-            {
-                id: "q1",
-                type: "text",
-                question: "1. Class 12th Boards mein aapka target percentage kya hai aur 12th ke baad kya plan hai?",
-                placeholder: "Apna plan likhein..."
-            },
-            {
-                id: "q2",
-                type: "radio",
-                question: "2. Aapko sabse zyada help kis subject mein chahiye?",
-                options: ["Physics / Maths", "Chemistry / Biology", "Accounts / Economics", "All Subjects Mock Practice"]
-            }
+            { id: "q1", type: "text", question: "1. What is your target percentage for Class 12th Board exams and post-board plan?", placeholder: "Write board targets..." },
+            { id: "q2", type: "text", question: "2. What was your Class 11th performance score?", placeholder: "Mention score..." },
+            { id: "q3", type: "radio", question: "3. In which subjects do you need maximum revision support?", options: ["Physics / Accounts", "Chemistry / Business", "Mathematics / Economics", "All subjects"] },
+            { id: "q4", type: "radio", question: "4. Status of board syllabus completion:", options: ["75% - 100% done", "50% - 75% done", "Less than 50%", "Just starting revision"] },
+            { id: "q5", type: "radio", question: "5. Daily study hours dedicated to board + entrance:", options: ["4-6 hours", "7-9 hours", "10+ hours", "2-3 hours"] },
+            { id: "q6", type: "radio", question: "6. Have you started solving past 5 years board papers?", options: ["Yes, regularly", "Just started", "Not yet", "Planning next month"] },
+            { id: "q7", type: "radio", question: "7. Confidence in answering subjective board questions:", options: ["High", "Moderate", "Low", "Nervous"] },
+            { id: "q8", type: "radio", question: "8. Are you managing entrance exam prep along with boards?", options: ["Yes, balanced", "Struggling to balance", "Focused only on boards", "Focused only on entrance"] },
+            { id: "q9", type: "radio", question: "9. Mock test frequency for 12th level:", options: ["Weekly", "Bi-weekly", "Monthly", "Never"] },
+            { id: "q10", type: "radio", question: "10. Preferred revision material:", options: ["NCERT / Textbooks", "Reference books", "Sample papers", "Online video notes"] },
+            { id: "q11", type: "radio", question: "11. Stress management during exam season:", options: ["Meditation/Sports", "Music/Sleep", "High anxiety", "No stress"] },
+            { id: "q12", type: "radio", question: "12. Career clarity after 12th:", options: ["100% clear", "Somewhat clear", "Confused", "Exploring options"] },
+            { id: "q13", type: "radio", question: "13. Teacher guidance quality in school:", options: ["Excellent", "Average", "Poor", "Self-dependent"] },
+            { id: "q14", type: "radio", question: "14. Do you practice writing long answers under timed conditions?", options: ["Yes", "No", "Sometimes", "Rarely"] },
+            { id: "q15", type: "radio", question: "15. Target college admission criteria:", options: ["Entrance exams", "Board percentage", "Both", "Direct admission"] },
+            { id: "q16", type: "radio", question: "16. English and optional subject preparation status:", options: ["Complete", "In progress", "Pending", "Not worried"] },
+            { id: "q17", type: "radio", question: "17. Attendance in school classes:", options: ["Regular (>90%)", "Moderate (75%)", "Low (<75%)", "Exempted / Dummy"] },
+            { id: "q18", type: "radio", question: "18. Do you review previous mock mistakes?", options: ["Always", "Sometimes", "Never", "N/A"] },
+            { id: "q19", type: "radio", question: "19. Confidence level for upcoming board exams:", options: ["Very Confident", "Moderately Confident", "Anxious", "Unprepared"] },
+            { id: "q20", type: "radio", question: "20. Ready to attempt the Council Scope Mock Assessment?", options: ["Yes, ready", "Let's begin", "Will try", "Yes"] }
         ],
         "BBA": [
-            {
-                id: "q1",
-                type: "text",
-                question: "1. Aap BBA kyun karna chahte hain? Kya aapka future plan MBA ya Entrepreneurship hai?",
-                placeholder: "Apne career thoughts likhein..."
-            },
-            {
-                id: "q2",
-                type: "radio",
-                question: "2. [Aptitude Mock] If a product is sold at ₹1200 with a 20% profit, what was its Cost Price?",
-                options: ["₹960", "₹1000", "₹1050", "₹1100"]
-            }
+            { id: "q1", type: "text", question: "1. Why do you want to pursue BBA and what are your management/entrepreneurship goals?", placeholder: "Write career goals..." },
+            { id: "q2", type: "text", question: "2. What is your academic background and percentage?", placeholder: "Mention scores..." },
+            { id: "q3", type: "radio", question: "3. [Aptitude] If a product is sold at ₹1200 with a 20% profit, what was its Cost Price?", options: ["₹960", "₹1000", "₹1050", "₹1100"] },
+            { id: "q4", type: "radio", question: "4. [Aptitude] The average of five numbers is 20. If one number is removed, the average becomes 15. The removed number is:", options: ["30", "35", "40", "45"] },
+            { id: "q5", type: "radio", question: "5. [Logical Reasoning] Find the odd one out: Apple, Mango, Carrot, Banana", options: ["Apple", "Mango", "Carrot", "Banana"] },
+            { id: "q6", type: "radio", question: "6. [English] Choose the correct antonym of 'GENEROUS':", options: ["Kind", "Stingy", "Broad", "Wealthy"] },
+            { id: "q7", type: "radio", question: "7. Which entrance exams are you targeting for BBA?", options: ["IPMAT (IIM Indore/Rohtak)", "DUJAT / CUET", "NPAT / SET", "General Management Test"] },
+            { id: "q8", type: "radio", question: "8. How strong are your quantitative aptitude skills?", options: ["Strong", "Average", "Needs practice", "Weak"] },
+            { id: "q9", type: "radio", question: "9. Daily preparation hours for entrance tests:", options: ["1-2 hours", "3-5 hours", "6+ hours", "Irregular"] },
+            { id: "q10", type: "radio", question: "10. Are you comfortable with verbal ability and reading comprehension?", options: ["Very comfortable", "Moderate", "Difficult", "Need training"] },
+            { id: "q11", type: "radio", question: "11. Interest in corporate case studies:", options: ["High", "Moderate", "Low", "Curious to learn"] },
+            { id: "q12", type: "radio", question: "12. Preferred career specialization in future MBA:", options: ["Finance", "Marketing", "Human Resources", "Operations / Analytics"] },
+            { id: "q13", type: "radio", question: "13. Mock test experience for aptitude tests:", options: ["Regular taker", "Beginner", "Never attempted", "Planning soon"] },
+            { id: "q14", type: "radio", question: "14. Public speaking and communication skills:", options: ["Good", "Average", "Hesitant", "Excellent"] },
+            { id: "q15", type: "radio", question: "15. Coaching status for management entrance:", options: ["Self-study", "Online coaching", "Offline coaching", "None"] },
+            { id: "q16", type: "radio", question: "16. General knowledge & business awareness level:", options: ["Updated daily", "Moderate", "Poor", "Not following news"] },
+            { id: "q17", type: "radio", question: "17. Speed and accuracy in calculations:", options: ["Fast", "Average", "Slow", "Use calculator"] },
+            { id: "q18", type: "radio", question: "18. Family business background or corporate aspiration?", options: ["Corporate career", "Family business", "Startup / Entrepreneur", "Undecided"] },
+            { id: "q19", type: "radio", question: "19. Consistency in test practice:", options: ["Very consistent", "Moderate", "Inconsistent", "Just started"] },
+            { id: "q20", type: "radio", question: "20. Ready to submit this assessment?", options: ["Yes", "Ready", "Let's proceed", "Yes, ready"] }
         ],
         "MBA": [
-            {
-                id: "q1",
-                type: "text",
-                question: "1. Aap MBA kyun karna chahte hain aur aapki preferred specialization (Finance, Marketing, HR, IT) kya hai?",
-                placeholder: "Apna answer yahan likhein..."
-            },
-            {
-                id: "q2",
-                type: "radio",
-                question: "2. [Quant Mock] A train 150m long passes a pole in 15 seconds. What is its speed in km/hr?",
-                options: ["30 km/hr", "36 km/hr", "45 km/hr", "54 km/hr"]
-            },
-            {
-                id: "q3",
-                type: "radio",
-                question: "3. Aap kaunse MBA entrance exams target kar rahe hain?",
-                options: ["CAT / XAT", "CMAT / MAT / CET", "GMAT / NMAT", "Direct Admission / Counseling"]
-            }
+            { id: "q1", type: "text", question: "1. Why do you want to pursue an MBA and what is your preferred management specialization?", placeholder: "Write MBA goals..." },
+            { id: "q2", type: "text", question: "2. What is your graduation background and aggregate percentage / CGPA?", placeholder: "Mention graduation details..." },
+            { id: "q3", type: "radio", question: "3. [Quant] A train 150m long passes a pole in 15 seconds. What is its speed in km/hr?", options: ["30 km/hr", "36 km/hr", "45 km/hr", "54 km/hr"] },
+            { id: "q4", type: "radio", question: "4. [Quant] If log10(x) = 2, what is the value of x?", options: ["10", "20", "100", "1000"] },
+            { id: "q5", type: "radio", question: "5. [Logical Reasoning] Statements: All pens are books. All books are pencils. Conclusion: All pens are pencils.", options: ["True", "False", "Cannot determine", "Either way"] },
+            { id: "q6", type: "radio", question: "6. [Verbal] Choose the word nearest in meaning to 'METICULOUS':", options: ["Careless", "Careful / Thorough", "Fast", "Simple"] },
+            { id: "q7", type: "radio", question: "7. Which MBA entrance exams are you preparing for?", options: ["CAT / XAT", "CMAT / MAT / CET", "GMAT / NMAT", "All major exams"] },
+            { id: "q8", type: "radio", question: "8. What is your current work experience (if any)?", options: ["Fresher", "1-2 years", "3+ years", "Self-employed"] },
+            { id: "q9", type: "radio", question: "9. Daily study / practice hours for CAT level questions:", options: ["1-3 hours", "4-6 hours", "7+ hours", "Weekend only"] },
+            { id: "q10", type: "radio", question: "10. Which section is your primary challenge?", options: ["Quantitative Aptitude (QA)", "Data Interpretation & Logical Reasoning (DILR)", "Verbal Ability & Reading Comprehension (VARC)", "None"] },
+            { id: "q11", type: "radio", question: "11. Target B-School tier:", options: ["IIMs / Top 10", "Tier-2 Reputed", "State / Regional", "Open to all good options"] },
+            { id: "q12", type: "radio", question: "12. Mock test analysis routine:", options: ["Detailed post-test analysis", "Quick review", "Scores check only", "No mock tests yet"] },
+            { id: "q13", type: "radio", question: "13. Comfort with reading complex editorials and articles:", options: ["High", "Moderate", "Low", "Struggle with speed"] },
+            { id: "q14", type: "radio", question: "14. Target percentile in CAT / Entrance:", options: ["99+ Percentile", "95-99 Percentile", "90-95 Percentile", "As required for admission"] },
+            { id: "q15", type: "radio", question: "15. Preparation mode:", options: ["Self-preparation", "Online coaching", "Classroom coaching", "Mentorship program"] },
+            { id: "q16", type: "radio", question: "16. Business news reading habit:", options: ["Daily", "Weekly", "Occasionally", "Never"] },
+            { id: "q17", type: "radio", question: "17. Analytical problem-solving aptitude:", options: ["Strong", "Moderate", "Need practice", "Challenging"] },
+            { id: "q18", type: "radio", question: "18. Long term career vision:", options: ["C-Suite / Corporate Leader", "Consultant", "Entrepreneur", "Financial Analyst"] },
+            { id: "q19", type: "radio", question: "19. Dedication and focus level:", options: ["Extremely dedicated", "Focused", "Moderate", "Casual"] },
+            { id: "q20", type: "radio", question: "20. Ready to submit this professional assessment?", options: ["Yes, submit", "Ready", "Proceed", "Yes"] }
         ]
     };
 
-    // Fallback questions agar user CUET, CLAT, NDA, CA select kare
+    // Fallback questions for other competitive courses (CUET, CLAT, NDA, CA)
     const defaultCourseQuestions = [
-        {
-            id: "q1",
-            type: "text",
-            question: "1. Aap yeh course kyun join karna chahte hain aur aapka main career objective kya hai?",
-            placeholder: "Apne career goals ke baare mein likhein..."
-        },
-        {
-            id: "q2",
-            type: "radio",
-            question: "2. [General Aptitude] Which number should replace the question mark: 5, 11, 23, 47, ?",
-            options: ["91", "95", "99", "85"]
-        },
-        {
-            id: "q3",
-            type: "radio",
-            question: "3. Aap kab se apni preparation / classes start karna chahte hain?",
-            options: ["Immediately", "Within 15 Days", "Next Month", "Just Exploring Options"]
-        }
+        { id: "q1", type: "text", question: "1. Why do you want to choose this professional course and what is your career vision?", placeholder: "Write your career aspirations..." },
+        { id: "q2", type: "text", question: "2. What is your past academic record and percentage?", placeholder: "Mention previous marks..." },
+        { id: "q3", type: "radio", question: "3. [Aptitude] Which number should replace the question mark: 5, 11, 23, 47, ?", options: ["91", "95", "99", "85"] },
+        { id: "q4", type: "radio", question: "4. [General Knowledge] Who is known as the Iron Man of India?", options: ["Mahatma Gandhi", "Sardar Vallabhbhai Patel", "Subhash Chandra Bose", "Jawaharlal Nehru"] },
+        { id: "q5", type: "radio", question: "5. [English] Choose the correct synonym of 'CANDID':", options: ["Secretive", "Honest / Frank", "Dishonest", "Complex"] },
+        { id: "q6", type: "radio", question: "6. What is your current preparation level?", options: ["Beginner", "Intermediate", "Advanced", "Just exploring"] },
+        { id: "q7", type: "radio", question: "7. Daily study commitment:", options: ["1-3 hours", "4-6 hours", "7+ hours", "Flexible"] },
+        { id: "q8", type: "radio", question: "8. Target exam timeline:", options: ["Within 3 months", "Within 6 months", "Next year", "Just exploring"] },
+        { id: "q9", type: "radio", question: "9. Preferred learning medium:", options: ["Online classes", "Offline coaching", "Self-study books", "Hybrid"] },
+        { id: "q10", type: "radio", question: "10. Have you attempted professional mock tests before?", options: ["Yes", "No", "Sometimes", "First time"] },
+        { id: "q11", type: "radio", question: "11. Confidence in aptitude and reasoning:", options: ["High", "Moderate", "Low", "Unsure"] },
+        { id: "q12", type: "radio", question: "12. Time management capability in examinations:", options: ["Good", "Average", "Needs work", "Poor"] },
+        { id: "q13", type: "radio", question: "13. Support system for career preparation:", options: ["Family & mentors", "Self-reliant", "Peer group", "None"] },
+        { id: "q14", type: "radio", question: "14. Goal clarity:", options: ["Very clear", "Somewhat clear", "Confused", "Exploring"] },
+        { id: "q15", type: "radio", question: "15. Regularity in habit:", options: ["Very regular", "Moderate", "Inconsistent", "New to schedule"] },
+        { id: "q16", type: "radio", question: "16. Handling pressure situations:", options: ["Calm", "Manageable", "Stressed", "Anxious"] },
+        { id: "q17", type: "radio", question: "17. Seeking personalized counseling?", options: ["Yes", "No", "Maybe", "Not needed"] },
+        { id: "q18", type: "radio", question: "18. Willingness to attempt weekly tests?", options: ["Yes", "No", "Depends", "Ready"] },
+        { id: "q19", type: "radio", question: "19. Overall motivation score (1-10):", options: ["8-10 (High)", "5-7 (Moderate)", "1-4 (Low)", "Unsure"] },
+        { id: "q20", type: "radio", question: "20. Ready to submit your assessment?", options: ["Yes, submit now", "Ready", "Proceed", "Yes"] }
     ];
 
     // ==========================================
@@ -703,7 +728,7 @@
         errorEl.style.display = "none";
 
         // Render Course Title & Questions
-        document.getElementById("selectedCourseTitle").textContent = course + " - Mock & Career Assessment";
+        document.getElementById("selectedCourseTitle").textContent = course + " - Council Scope Mock Assessment";
         renderQuestions(course);
 
         // Switch Views
@@ -857,7 +882,6 @@
 
         } catch (error) {
             console.error("Submission Error:", error);
-            // Agar abhi aap local file test kar rahe hain aur Render URL dummy hai, toh user ko alert dikhayega:
             alert("Could not connect to Render URL (" + RENDER_SUBMIT_URL + "). Please check your Flask app.py CORS settings or live URL.\n\nPayload ready in Console (F12).");
             submitBtn.disabled = false;
             submitBtn.textContent = "Submit Assessment";
